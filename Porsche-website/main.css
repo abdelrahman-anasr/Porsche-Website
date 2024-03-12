@@ -1,6 +1,8 @@
 @font-face {
-    font-family: PorscheFont;
-    src: url(fonts\POR2.TTF);
+    font-family: porscheFont;
+    src: url(porsche.ttf);
+    font-family: porscheBold;
+    src: url(porschebold.ttf)
 }
 
 #porscheblack {
@@ -9,6 +11,12 @@
 
 #porschered {
     color: #B12B28;
+}
+h1 {
+    font-family: porscheFont;
+}
+h2 {
+    font-family: porscheBold
 }
 
 #porschegold {
