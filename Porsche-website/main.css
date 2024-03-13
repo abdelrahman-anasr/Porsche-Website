@@ -106,11 +106,11 @@ body, html {
 }
 .custom-btn {
     background-color: #EBD698;
-    border-color: #EBD698; /* Optional: to change the border color */
-    color: #000; /* Optional: to change the text color */
+    border-color: #EBD698; 
+    color: #000; 
 }
 
-  .logoPlacing {
+.logoPlacing {
     display: block; 
     position: absolute; 
     top: 0px; 

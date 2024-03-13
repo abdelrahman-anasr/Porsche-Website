@@ -42,11 +42,11 @@
             overflow: hidden;
             white-space: nowrap;
             font-size: 34px;
-            width: 100%; /* Adjust the width */
+            width: auto; /* Set width to auto */
+            display: inline-block; /* Make it an inline-block element */
             animation: typing 1s steps(20, end) forwards;
             font-family: 'porscheFont';
         }
-        
         
         .form-container {
             text-align: center;
@@ -73,39 +73,52 @@
         .social-icons a {
             margin-right: 10px;
         }
-
     </style>
 </head>
 <body>
     <div class="container">
         <div class="yellow-container">
             <div class="social-icons">
-                <h4 class="typed-out">Contact</h4>
-                <h4 class="typed-out">Us</h4>
+                <h1 class="typed-out">Contact </h1>
+                <h1 class="typed-out">Us</h1>
                 <a href="https://www.instagram.com/porsche/" target="_blank"><img src="Instagram.png" alt="Instagram" width="50" height="50"></a>
                 <a href="https://www.facebook.com/porsche" target="_blank"><img src="facebook.png" alt="Facebook" width="50" height="50"></a>
+                <a href="https://linkedin.com/company/porsche-ag" target="_blank"><img src="logo2.png" alt="linkedin" width="50" height="50"></a>
             </div>
             
             <div class="form-container">
                 <h3>Contact Form</h3>
-                <form action="/action_page.php">
-                    <label for="fname">First Name</label>
-                    <br>
-                    <input type="text" id="fname" name="firstname" placeholder="Your name.." style=" font-family: porscheFont;">
-                    <br>
-                    <label for="lname">Last Name</label>
-                    <br>
-                    <input type="text" id="lname" name="lastname" placeholder="Your last name.." style=" font-family: porscheFont;">
-                    <br>
-                    <label for="subject">Subject</label>
-                    <br>
-                    <textarea id="subject" name="subject" placeholder="Write something.." style="height: 100px; font-family: porscheFont;"></textarea>
-                    <br>
-                    <input type="submit" value="Submit">
+                <form action="#" method="post">
+                    <label for="fname">First Name</label><br>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name.." style=" font-family: porscheFont;"><br>
+                    <label for="lname">Last Name</label><br>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name.." style=" font-family: porscheFont;"><br>
+                    <label for="subject">Subject</label><br>
+                    <textarea id="subject" name="subject" placeholder="Write something.." style="height: 100px; font-family: porscheFont;"></textarea><br>
+                    <button id="myBtn" class="btn btn-primary" onclick="javascript:alert('Submitted Successfully!')">Submit</button>
                 </form>
             </div>
         </div>
     </div>
-
 </body>
+</html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>
