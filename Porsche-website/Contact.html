@@ -39,16 +39,14 @@
         }
         
         .typed-out {
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 34px;
-    width: auto; /* Set width to auto */
-    display: inline-block; /* Make it an inline-block element */
-    animation: typing 1s steps(20, end) forwards;
-    font-family: 'porscheFont';
-}
-
-        
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 34px;
+            width: auto; /* Set width to auto */
+            display: inline-block; /* Make it an inline-block element */
+            animation: typing 1s steps(20, end) forwards;
+            font-family: 'porscheFont';
+        }
         
         .form-container {
             text-align: center;
@@ -75,46 +73,32 @@
         .social-icons a {
             margin-right: 10px;
         }
-
     </style>
 </head>
 <body>
     <div class="container">
         <div class="yellow-container">
             <div class="social-icons">
-
                 <h1 class="typed-out">Contact </h1>
                 <h1 class="typed-out">Us</h1>
-                
-
-                
-
                 <a href="https://www.instagram.com/porsche/" target="_blank"><img src="Instagram.png" alt="Instagram" width="50" height="50"></a>
                 <a href="https://www.facebook.com/porsche" target="_blank"><img src="facebook.png" alt="Facebook" width="50" height="50"></a>
                 <a href="https://linkedin.com/company/porsche-ag" target="_blank"><img src="logo2.png" alt="linkedin" width="50" height="50"></a>
-                
             </div>
             
             <div class="form-container">
                 <h3>Contact Form</h3>
-                <form action="/action_page.php">
-                    <label for="fname">First Name</label>
-                    <br>
-                    <input type="text" id="fname" name="firstname" placeholder="Your name.." style=" font-family: porscheFont;">
-                    <br>
-                    <label for="lname">Last Name</label>
-                    <br>
-                    <input type="text" id="lname" name="lastname" placeholder="Your last name.." style=" font-family: porscheFont;">
-                    <br>
-                    <label for="subject">Subject</label>
-                    <br>
-                    <textarea id="subject" name="subject" placeholder="Write something.." style="height: 100px; font-family: porscheFont;"></textarea>
-                    <br>
-                    <input type="submit" value="Submit">
+                <form action="#" method="post">
+                    <label for="fname">First Name</label><br>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name.." style=" font-family: porscheFont;"><br>
+                    <label for="lname">Last Name</label><br>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name.." style=" font-family: porscheFont;"><br>
+                    <label for="subject">Subject</label><br>
+                    <textarea id="subject" name="subject" placeholder="Write something.." style="height: 100px; font-family: porscheFont;"></textarea><br>
+                    <button id="myBtn" class="btn btn-primary" onclick="javascript:alert('Submitted Successfully!')">Submit</button>
                 </form>
             </div>
         </div>
     </div>
-
 </body>
 </html>
