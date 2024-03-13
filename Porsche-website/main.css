@@ -3,6 +3,56 @@
     src: url(porsche.ttf);
 }
 
+.container {
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; 
+}
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+.typed-out {
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    font-family: porscheFont;
+    font-size: 36px;
+    width: 0;
+    animation: typing 1s steps(20, end) forwards;
+}
+.subtitle{
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    font-family: porscheFont;
+    font-size: 28px;
+    width: 0;
+    bottom:20%;
+    color:#630605 ;
+}
+.category{
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    font-family: porscheFont;
+    font-size: 20px;
+    width: 0;
+    bottom:20%;
+    color:#630605 ;
+}
+.text{
+    font-family:serif;
+    font-size: 18px;
+}
+.image{
+    font-family:fantasy;
+    font-size:20px;
+}
+.highlight-background {
+    background-color: #d7c07a
+}
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
 
 
