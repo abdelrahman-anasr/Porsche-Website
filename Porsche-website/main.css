@@ -24,7 +24,7 @@ body, html {
 }
 
 .content {
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 20px;
 }
