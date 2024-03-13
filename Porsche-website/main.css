@@ -2,15 +2,33 @@
     font-family: porscheFont;
     src: url(porsche.ttf);
 }
-
-.container {
-    position: absolute;
-    text-align: center;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999; 
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
+
+.containerx {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}
+
+.content {
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    color: white;
+    padding: 20px;
+}
+
 @keyframes typing {
     from { width: 0 }
     to { width: 100% }
@@ -19,39 +37,32 @@
     overflow: hidden;
     border-right: .15em solid orange;
     white-space: nowrap;
-    font-family: porscheFont;
-    font-size: 36px;
-    width: 0;
+    font-size: 1.6rem;
+    width: 100%; /* Adjust the width */
     animation: typing 1s steps(20, end) forwards;
+    font-family: 'porscheFont';
 }
-.subtitle{
-    border-right: .15em solid orange;
-    white-space: nowrap;
-    font-family: porscheFont;
-    font-size: 28px;
-    width: 0;
-    bottom:20%;
-    color:#630605 ;
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* Make sure it's behind the text */
 }
-.category{
-    border-right: .15em solid orange;
-    white-space: nowrap;
-    font-family: porscheFont;
-    font-size: 20px;
-    width: 0;
-    bottom:20%;
-    color:#630605 ;
+.form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #EBD698;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'porscheFont';
 }
-.text{
-    font-family:serif;
-    font-size: 18px;
-}
-.image{
-    font-family:fantasy;
-    font-size:20px;
-}
-.highlight-background {
-    background-color: #d7c07a
+.label.success.tx {
+    font-size: 14px;
 }
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
 
