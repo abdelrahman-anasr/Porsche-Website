@@ -2,14 +2,9 @@
     font-family: porscheFont;
     src: url(porsche.ttf);
 }
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
 
-.containerx {
-    position: relative;
+.container {
+    position: absolute;
     text-align: center;
     color: white;
 }
@@ -24,7 +19,7 @@ body, html {
 }
 
 .content {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
     color: white;
     padding: 20px;
 }
@@ -33,6 +28,7 @@ body, html {
     from { width: 0 }
     to { width: 100% }
 }
+
 .typed-out {
     overflow: hidden;
     border-right: .15em solid orange;
@@ -42,37 +38,36 @@ body, html {
     animation: typing 1s steps(20, end) forwards;
     font-family: 'porscheFont';
 }
-#myVideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    z-index: -1; /* Make sure it's behind the text */
-}
+
 .form-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    font-family: 'porscheFont';
+}
+
+.yellow-container {
     background-color: #EBD698;
     padding: 20px;
     border-radius: 10px;
-    font-family: 'porscheFont';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: fit-content; /* Allows the container to adjust its width based on content */
+    text-align: center; /* Centers the content inside the container */
 }
+
+
+
 .label.success.tx {
-    font-size: 14px;
+    font-size: 24px; /* Adjust the font size as needed */
 }
-.text{
-    font-family:serif;
-    font-size:18px;
-    color:#6b100f ;
-    text-align: center;
-}
-.subtitle{
-    font-family:porscheFont;
-    font-size:22px;
+
+.social-icons {
+    margin-top: 20px;
 }
 .category{
     font-family: porscheFont;
@@ -84,30 +79,6 @@ body, html {
     text-align: center;
  
 }
-.overlappingLogo {
-    margin-top: -0.15%;
-    margin-left: -1.2%;
-    scale: 100%;
-    position: absolute;
-    display: block;
-    float: left;
-  }
-
-.porscheMainTitle {
-    font-family: 'porscheFont';
-    font-size: 32px;
-    color: white;
-    margin-left: 50%;
-    padding-top: 3.2%;
-
-}
-
-  .logoPlacing {
-    display: block; 
-    position: absolute; 
-    top: 0px; 
-    left: -5px; 
-  }
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
 
 
