@@ -2,7 +2,49 @@
     font-family: porscheFont;
     src: url(porsche.ttf);
 }
-
+.container {
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; 
+}
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+.typed-out {
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    font-family: porscheFont;
+    font-size: 36px;
+    width: 0;
+    animation: typing 1s steps(20, end) forwards;
+}
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* Make sure it's behind the text */
+}
+.form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #EBD698;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'porscheFont';
+}
+.label.success.tx {
+    font-size: 14px;
+}
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
 
 
