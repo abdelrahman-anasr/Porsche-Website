@@ -37,7 +37,7 @@ body, html {
     overflow: hidden;
     border-right: .15em solid orange;
     white-space: nowrap;
-    font-size: 1.6rem;
+    font-size: 30px;
     width: 100%; /* Adjust the width */
     animation: typing 1s steps(20, end) forwards;
     font-family: 'porscheFont';
@@ -63,6 +63,24 @@ body, html {
 }
 .label.success.tx {
     font-size: 14px;
+}
+.text{
+    font-family:serif;
+    font-size:18px;
+    color:#6b100f 
+}
+.subtitle{
+    font-family:porscheFont;
+    font-size:22px;
+}
+.category{
+    font-family: porscheFont;
+    font-size: 18px;
+}
+.image{
+    font-family:fantasy;
+    font-size:18px;
+    text-align: center;
 }
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
 
