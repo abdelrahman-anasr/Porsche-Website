@@ -67,7 +67,8 @@ body, html {
 .text{
     font-family:serif;
     font-size:18px;
-    color:#6b100f 
+    color:#6b100f ;
+    text-align: center;
 }
 .subtitle{
     font-family:porscheFont;
@@ -79,8 +80,9 @@ body, html {
 }
 .image{
     font-family:fantasy;
-    font-size:18px;
+    font-size:23px;
     text-align: center;
+ 
 }
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
 
