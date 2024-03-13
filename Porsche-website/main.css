@@ -24,7 +24,7 @@ body, html {
 }
 
 .content {
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 20px;
 }
@@ -67,7 +67,8 @@ body, html {
 .text{
     font-family:serif;
     font-size:18px;
-    color:#6b100f 
+    color:#6b100f ;
+    text-align: center;
 }
 .subtitle{
     font-family:porscheFont;
@@ -79,8 +80,9 @@ body, html {
 }
 .image{
     font-family:fantasy;
-    font-size:18px;
+    font-size:23px;
     text-align: center;
+ 
 }
 .overlappingLogo {
     margin-top: -0.15%;
