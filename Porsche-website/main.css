@@ -99,9 +99,24 @@ body, html {
     margin-top: 10px;
     color: white;
     padding-top: 3.2%;
-
+    margin-right: 0%;
+    margin-left: 50%;
+}
+.nav-elements{
+    font-family: 'porscheFont';
+    color: white;
+    margin-top: 10px;
+    margin-right: 35%;
 }
 
+.nav-elements a:link{
+    margin-left: 50px;
+    color:#EBD698;
+    text-decoration: none;
+}
+.nav-elements a:hover{
+    cursor: pointer !important;
+}
 
 .logoPlacing {
     display: block; 
