@@ -1,0 +1,33 @@
+@font-face {
+  font-family: porscheFont;
+  src: url(porschefont.ttf);
+}
+
+
+.navbar-div {
+  display: flex !important;
+  float: left !important;
+}
+
+
+.title {
+  font-family: porscheFont;
+  margin-top: 20px !important;
+  align-self: left !important;
+}
+
+hr.red {
+  margin-top: 0%;
+  border-top: 9px solid #B12B28;
+  margin-bottom: 0%;
+  opacity: 100%;
+  z-index: -1;
+}
+
+hr.gold {
+  margin-top: 0%;
+  border-top: 9px solid #EBD698;
+  opacity: 100%;
+  z-index: -1;
+}
+
