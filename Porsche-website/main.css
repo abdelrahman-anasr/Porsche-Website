@@ -82,6 +82,30 @@ body, html {
     font-size:18px;
     text-align: center;
 }
+.overlappingLogo {
+    margin-top: -0.15%;
+    margin-left: -1.2%;
+    scale: 100%;
+    position: absolute;
+    display: block;
+    float: left;
+  }
+
+.porscheMainTitle {
+    font-family: 'porscheFont';
+    font-size: 32px;
+    color: white;
+    margin-left: 50%;
+    padding-top: 3.2%;
+
+}
+
+  .logoPlacing {
+    display: block; 
+    position: absolute; 
+    top: 0px; 
+    left: -5px; 
+  }
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
 
 
