@@ -1,3 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contact Us - Porsche</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Custom CSS -->
+    <style>
+        @font-face {
+            font-family: porscheFont;
+            src: url(porsche.ttf);
+        }
+        
+        body {
+            font-family: 'porscheFont';
+            background-image: url('porsche.jpg'); /* Add background image for the body */
+            background-size: cover; /* Ensure the background image covers the entire viewport */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+        
+        .container {
+            position: absolute;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999; /* Set z-index to ensure the container stays on top */
+            width: max-content; /* Set the width to the maximum content width */
+            margin: auto; /* Center the container horizontally */
+            
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        .typed-out {
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 34px;
+            width: auto; /* Set width to auto */
+            display: inline-block; /* Make it an inline-block element */
+            animation: typing 1s steps(20, end) forwards;
+            font-family: 'porscheFont';
+        }
+        
+        .form-container {
+            text-align: center;
+            font-family: 'porscheFont';
+        }
+        
+        .yellow-container {
+            background-color: #EBD698;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex; /* Use flexbox to create a horizontal layout */
+            justify-content: space-between; /* Align items at the start and end of the container */
+        }
+        
+        .social-icons,
+        .form-container {
+            width: 75%; /* Adjust the width of each section */
+        }
+        
+        .social-icons {
+            text-align: center; /* Center social media icons */
+        }
+        
+        .social-icons a {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="yellow-container">
+            <div class="social-icons">
+                <h1 class="typed-out">Contact </h1>
+                <h1 class="typed-out">Us</h1>
+                <a href="https://www.instagram.com/porsche/" target="_blank"><img src="Instagram.png" alt="Instagram" width="50" height="50"></a>
+                <a href="https://www.facebook.com/porsche" target="_blank"><img src="facebook.png" alt="Facebook" width="50" height="50"></a>
+                <a href="https://linkedin.com/company/porsche-ag" target="_blank"><img src="logo2.png" alt="linkedin" width="50" height="50"></a>
+            </div>
+            
+            <div class="form-container">
+                <h3>Contact Form</h3>
+                <form action="#" method="post">
+                    <label for="fname">First Name</label><br>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name.." style=" font-family: porscheFont;"><br>
+                    <label for="lname">Last Name</label><br>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name.." style=" font-family: porscheFont;"><br>
+                    <label for="subject">Subject</label><br>
+                    <textarea id="subject" name="subject" placeholder="Write something.." style="height: 100px; font-family: porscheFont;"></textarea><br>
+                    <button id="myBtn" class="btn btn-primary" onclick="javascript:alert('Submitted Successfully!')">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 <!doctype html>
 <html lang="en">
   <head>
