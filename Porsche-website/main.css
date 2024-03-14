@@ -129,4 +129,27 @@ body, html {
     font-size: 23px; 
     color: #ffffff; 
   }
+  #audioButton {
+    background-color: #EBD698;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-family: Porschefont;
+    margin: 0 auto;
+    width: auto;
+    cursor: pointer;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px; 
+    width: 500px; 
+    height: 40px;
+    
+  }
+  
+  #audioButton:hover {
+    background-color: #B12B28; 
+  }
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */

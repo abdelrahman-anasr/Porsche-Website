@@ -95,10 +95,21 @@
     <b><div class="category">Our Exceptional Accomplishments in Tracks</div></b></div>
     <div class="text">Porsche has been successful in many branches of motorsport of which most have been in long-distance races.<br>
         The Porsche 917 is considered one of the most iconic racing cars of all time and gave Porsche their first 24 Hours of Le Mans win, while open-top versions of it dominated Can-Am racing. After dominating Group 4, 5, and 6 racing in the 1970s with the 911-based 934 and 935 and the prototype 936, Porsche moved on to dominate Group C and IMSA GTP in the 1980s with the Porsche 956/962C, one of the most prolific and successful sports prototype racers ever produced.</div>
-    <img src="racingcar.jpeg" alt="Cayenne Car"style="display: block; margin: 0 auto;width: 500px; height: 200px;">
-    <audio id="myAudio" controls autoplay loop>
+    <img src="racingcar.jpeg" alt="Racing Car"style="display: block; margin: 0 auto;width: 500px; height: 200px;">
+    <p></p>
+    <p></p>
+    <audio id="myAudio" autoplay loop>
       <source src="porsche_911_gt2rs.mp3" type="audio/mp3">
     </audio>
+    
+    <button onclick="playAudio()" id="audioButton">Click here to know more about Porsche</button>
+    
+    <script>
+      function playAudio() {
+        var audio = document.getElementById("myAudio");
+        audio.play();
+      }
+    </script>
  
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
