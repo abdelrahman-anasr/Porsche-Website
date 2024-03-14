@@ -85,14 +85,14 @@ body, html {
  
 }
 .overlappingLogo {
-    margin-top: -0.15%;
-    margin-left: -0.88%;
-    scale: 100%;
-    position: absolute;
-    display: block;
-    float: left;
-    z-index: 1;
-  }
+  margin-top: 0%;
+  margin-left: 0%;
+  scale: 100%;
+  position: absolute;
+  display: block;
+  float: left;
+  z-index: 1;
+}
 
 .porscheMainTitle {
     font-family: 'porscheFont';
@@ -161,7 +161,7 @@ body, html {
   }
 
   .navbar-nav{
-    margin-left: 15%;
+    margin-left: 10%;
   }
   .navbar-nav a {
     position: relative;
