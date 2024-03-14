@@ -181,28 +181,28 @@ body, html {
   .navbar-nav a:hover {
     border-bottom: 2px solid white;
   }
-   /* The sidebar menu */
+
 .sidebar {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 2;
+  z-index: 4;
   top: 0;
   left: 0;
   background-color: #000000;
   overflow-x: hidden;
   padding-top: 60px;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
-/* The sidebar links */
+
 .sidebar a {
-  padding: 8px 8px 8px 32px;
+  padding: 10px 10px 10px 32px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
   display: block;
-  transition: 0.3s;
+  transition: 1.0s;
 }
 
 .sidebar a:hover {
@@ -213,24 +213,40 @@ body, html {
   position: absolute;
   top: 0;
   right: 25px;
-  font-size: 36px;
+  font-size: 24px;
   margin-left: 50px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #444;
 }
 
 #main {
   padding: 20px;
 }
-/*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
+.secondSidebar {
+  width: 0px;
+  height: 100%;
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  left: 300px;
+  overflow-x: hidden;
+  transition: 0.5s;
+  background-color: #e8e8e8;
+}
+.secondSidebar a {
+  -webkit-filter: blur(2px);
+}
+
+.secondSidebar a:hover {
+  -webkit-filter: blur(0px);
+}
+.secondX {
+  padding: 10px 10px 10px 32px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 24px;
+  margin-left: 50px;
+  color: #000000;
+  border-radius: 0%;
+  cursor: pointer;
+  font-family: porscheFont;
+}
