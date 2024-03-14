@@ -85,8 +85,8 @@ body, html {
  
 }
 .overlappingLogo {
-    margin-top: -0.15%;
-    margin-left: -0.88%;
+    margin-top: 0%;
+    margin-left: 0%;
     scale: 100%;
     position: absolute;
     display: block;
@@ -154,7 +154,7 @@ body, html {
     background-color: #B12B28; 
   }
   .gapDiv {
-    width: 90px;
+    width: 60px;
   }
   .spacerDiv {
     width: 350px;
