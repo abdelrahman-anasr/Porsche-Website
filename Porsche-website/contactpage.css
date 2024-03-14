@@ -1,0 +1,81 @@
+@font-face {
+    font-family: porscheFont;
+    src: url(porsche.ttf);
+}
+
+body {
+    font-family: 'porscheFont';
+    background-image: url('porsche.jpg'); /* Add background image for the body */
+    background-size: cover; /* Ensure the background image covers the entire viewport */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.container {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* Set z-index to ensure the container stays on top */
+    width: max-content; /* Set the width to the maximum content width */
+    margin: auto; /* Center the container horizontally */
+    
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+.typed-out {
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 34px;
+    width: auto; /* Set width to auto */
+    display: inline-block; /* Make it an inline-block element */
+    animation: typing 1s steps(20, end) forwards;
+    font-family: 'porscheFont';
+}
+
+.form-container {
+    text-align: center;
+    font-family: 'porscheFont';
+}
+
+.yellow-container {
+    background-color: #EBD698;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex; /* Use flexbox to create a horizontal layout */
+    justify-content: space-between; /* Align items at the start and end of the container */
+}
+
+.social-icons,
+.form-container {
+    width: 75%; /* Adjust the width of each section */
+}
+
+.social-icons {
+    text-align: center; /* Center social media icons */
+}
+
+.social-icons a {
+    margin-right: 10px;
+}
+
+/* Add these styles for the custom button */
+.custom-btn {
+    font-family: 'porscheFont';
+    color: #007BFF; /* Blue color */
+    background-color: #ffffff; /* White background */
+    border: 2px solid #007BFF; /* Blue border */
+    padding: 10px 20px; /* Adjust padding as needed */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-btn:hover {
+    background-color: #007BFF; /* Blue background on hover */
+    color: #ffffff; /* White color on hover */
+}
