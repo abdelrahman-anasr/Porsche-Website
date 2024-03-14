@@ -238,6 +238,10 @@ body, html {
 .secondSidebar a:hover {
   -webkit-filter: blur(0px);
 }
+.secondSidebar span:hover {
+  color: #EBD698;
+  transition: 1.0s;
+}
 .secondX {
   padding: 10px 10px 10px 32px;
   position: absolute;
