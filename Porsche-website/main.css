@@ -126,9 +126,16 @@ body, html {
     height: auto;
   }
   .carousel-caption h5 {
-    font-family: fantasy; 
-    font-size: 23px; 
+    font-family: spade; 
+    font-size: 30px; 
     color: #ffffff; 
+    font-weight: bold;
+  }
+  .carousel-caption-alt {
+    font-family: spade; 
+    font-size: 30px; 
+    color: #ffffff00; 
+    font-weight: bold;
   }
   #audioButton {
     background-color: #EBD698;
