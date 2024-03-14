@@ -159,4 +159,19 @@ body, html {
   .spacerDiv {
     width: 350px;
   }
+
+  .navbar-nav{
+    margin-left: 15%;
+  }
+  .navbar-nav a {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  
+  .navbar-nav a:hover {
+    border-bottom: 2px solid white;
+  }
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
