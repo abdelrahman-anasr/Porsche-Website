@@ -86,11 +86,12 @@ body, html {
 }
 .overlappingLogo {
     margin-top: -0.15%;
-    margin-left: -1.2%;
+    margin-left: -0.88%;
     scale: 100%;
     position: absolute;
     display: block;
     float: left;
+    z-index: 1;
   }
 
 .porscheMainTitle {
@@ -151,5 +152,11 @@ body, html {
   
   #audioButton:hover {
     background-color: #B12B28; 
+  }
+  .gapDiv {
+    width: 90px;
+  }
+  .spacerDiv {
+    width: 350px;
   }
 /*  Gold RGB Value = #EBD698   |   Red RGB Value= #B12B28  |   Black RGB Value = #000000-   */
