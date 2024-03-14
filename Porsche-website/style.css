@@ -30,3 +30,11 @@ hr.gold {
   opacity: 100%;
   z-index: -1;
 }
+
+hr.black{
+  margin-top: 0%;
+  border-top: 2px solid #000000;
+  opacity: 30%;
+  width: 40%;
+  z-index: -1;
+}
