@@ -357,3 +357,6 @@ hr.black{
   width: 40%;
   z-index: -1;
 }
+.container{
+  width:50%;
+}
