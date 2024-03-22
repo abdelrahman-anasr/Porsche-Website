@@ -1,4 +1,5 @@
-function openNav() {
+
+  function openNav() {
     document.getElementById("sidebar").style.width = "300px";
     document.getElementById("main").style.marginLeft = "300px";
   }
@@ -18,3 +19,4 @@ function openNav() {
     document.getElementById("secondSidebar").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
   }
+  
