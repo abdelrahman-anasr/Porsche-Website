@@ -409,6 +409,10 @@ hr.black{
   background-color: black;
 }
 
+.audioButton{
+  margin-bottom: 90px;
+}
+
 .gridImagery {
   border-radius: 25px;
 }

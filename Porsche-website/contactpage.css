@@ -5,10 +5,10 @@
 
 body {
     font-family: 'porscheFont';
-    background-image: url('porsche.jpg'); /* Add background image for the body */
-    background-size: cover; /* Ensure the background image covers the entire viewport */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    background-image: url('porsche.jpg');
+    background-size: cover;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -17,9 +17,9 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 999; /* Set z-index to ensure the container stays on top */
-    width: max-content; /* Set the width to the maximum content width */
-    margin: auto; /* Center the container horizontally */
+    z-index: 999; 
+    width: max-content;
+    margin: auto;
     
 }
 
@@ -32,8 +32,8 @@ body {
     overflow: hidden;
     white-space: nowrap;
     font-size: 34px;
-    width: auto; /* Set width to auto */
-    display: inline-block; /* Make it an inline-block element */
+    width: auto;
+    display: inline-block;
     animation: typing 1s steps(20, end) forwards;
     font-family: 'porscheFont';
 }
@@ -47,35 +47,34 @@ body {
     background-color: #EBD698;
     padding: 20px;
     border-radius: 10px;
-    display: flex; /* Use flexbox to create a horizontal layout */
-    justify-content: space-between; /* Align items at the start and end of the container */
+    display: flex; 
+    justify-content: space-between; 
 }
 
 .social-icons,
 .form-container {
-    width: 75%; /* Adjust the width of each section */
+    width: 75%; 
 }
 
 .social-icons {
-    text-align: center; /* Center social media icons */
+    text-align: center; 
 }
 
 .social-icons a {
     margin-right: 10px;
 }
 
-/* Add these styles for the custom button */
 .custom-btn {
     font-family: 'porscheFont';
-    color: #007BFF; /* Blue color */
-    background-color: #ffffff; /* White background */
-    border: 2px solid #007BFF; /* Blue border */
-    padding: 10px 20px; /* Adjust padding as needed */
+    color: #007BFF; 
+    background-color: #ffffff; 
+    border: 2px solid #007BFF; 
+    padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .custom-btn:hover {
-    background-color: #007BFF; /* Blue background on hover */
-    color: #ffffff; /* White color on hover */
+    background-color: #007BFF; 
+    color: #ffffff; 
 }
