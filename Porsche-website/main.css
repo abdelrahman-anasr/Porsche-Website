@@ -346,6 +346,7 @@ hr.red {
 hr.gold {
   margin-top: 0%;
   border-top: 9px solid #EBD698;
+  margin-bottom: 0%;
   opacity: 100%;
   z-index: -1;
 }
@@ -359,4 +360,49 @@ hr.black{
 }
 .container{
   width:50%;
+}
+
+.welcomeClass {
+  align-items: center;
+}
+
+.RowClass {
+  padding: 0 4px;
+}
+.ColumnClass {
+  padding: 0 4px;
+}
+
+.card-body {
+  background-color: #6b100f;
+}
+
+.col-md-4 {
+  transition: transform .2s; /* Animation */
+  border-radius: 25px;
+}
+
+.col-md-4:hover {
+  transform: scale(1.05);
+}
+
+.col-md-4:hover .overlayingText {
+  opacity: 1;
+}
+
+.overlayingText {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: black;
+}
+
+.gridImagery {
+  border-radius: 25px;
 }
