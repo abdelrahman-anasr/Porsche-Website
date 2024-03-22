@@ -284,6 +284,12 @@ body, html {
   cursor: pointer;
   opacity: 0.5;
 }
+.footer-container{
+  position: fixed !important;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 
 .location_2{
   display: inline block;
