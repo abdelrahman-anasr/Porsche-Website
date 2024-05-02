@@ -13,7 +13,7 @@ console.log(express.json())
 
 
 const {MongoClient}=require('mongodb')
-const url = "mongodb://localhost:27017"
+const url = "mongodb+srv://abdelrahman2004:software123@database.99j14ho.mongodb.net/"
 async function main(){
     /**
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
@@ -84,22 +84,62 @@ app.get("/v1/api/customers/",(req,res)=>{
 });
 
 app.post("/v1/api/customers",(req,res)=>{
-    console.log(req.body)
-    res.status(201).json({mssg: "Received Successfully!"})
-});
-
-app.patch("/v1/api/customers",(req,res)=>{
-    console.log(req.params.id)
-    console.log(req.body)
+    const data = req.body
+    db.collection("Customers")
+    .insertMany(data)
+    .then(result => {
+        res.status(201).json(result)
+    })
+    .catch (err =>{
+        res.status(500).json({err:"could not be inserted"})
+    })
 });
 
 app.put("/v1/api/customers",(req,res)=>{
-    console.log(req.params.id)
-    console.log(req.body)
+    const data= req.body
+    db.collection("Customers")
+    .insertOne(data)
+    .then(result =>{
+      res.status(201).json(result)
+      })
+    .catch(err =>{
+       res.status(500).json({err:"could not be inserted"})})
+});
+
+app.patch("/v1/api/customers",(req,res)=>{
+    const updates=req.body
+    id=req.body._id
+    if(ObjectId.isValid(id)){
+        db.collection('Customers')
+        .updateOne({_id: new ObjectId(id) },{$set:updates})
+        .then(result=>{
+            res.status(200).json(result)
+        })
+        .catch(err=>{
+            res.status(500).json({error:"could not update"})
+
+        })
+     } else { 
+        res.status(500).json({error:"not a valid ID"})
+
+    }
 });
 
 app.delete("/v1/api/customers",(req,res)=>{
+    id = req.body._id
     console.log(req.params.id)
+    if (ObjectId.isValid(id)){
+        db.collection("Customers")
+        .deleteOne({_id: new ObjectId(id)})
+        .then(result=>{res.status(204).json(result)
+        })
+        .catch(err=>{
+            res.status(500).json({error: "could not delete document"})
+        })
+    
+    }else{
+        res.status(500).json({error:"invalid id"})
+    }
 });
 
 app.use((req , res , next)=>{
