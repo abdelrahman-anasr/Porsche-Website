@@ -1,0 +1,80 @@
+@font-face {
+    font-family: porscheFont;
+    src: url(porsche.ttf);
+}
+
+body {
+    font-family: 'porscheFont';
+    background-image: url('porsche.jpg');
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; 
+    width: max-content;
+    margin: auto;
+    
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+.typed-out {
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 34px;
+    width: auto;
+    display: inline-block;
+    animation: typing 1s steps(20, end) forwards;
+    font-family: 'porscheFont';
+}
+
+.form-container {
+    text-align: center;
+    font-family: 'porscheFont';
+}
+
+.yellow-container {
+    background-color: #EBD698;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex; 
+    justify-content: space-between; 
+}
+
+.social-icons,
+.form-container {
+    width: 75%; 
+}
+
+.social-icons {
+    text-align: center; 
+}
+
+.social-icons a {
+    margin-right: 10px;
+}
+
+.custom-btn {
+    font-family: 'porscheFont';
+    color: #007BFF; 
+    background-color: #ffffff; 
+    border: 2px solid #007BFF; 
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-btn:hover {
+    background-color: #007BFF; 
+    color: #ffffff; 
+}
