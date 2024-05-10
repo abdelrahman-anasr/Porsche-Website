@@ -76,7 +76,6 @@ async function findOne(query , result) {
 
 /*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
 
-<<<<<<< HEAD
 app.post('/customers/auth' , authenticateToken , async (req,res) => {
     try {
 
@@ -88,8 +87,6 @@ app.post('/customers/auth' , authenticateToken , async (req,res) => {
     }
 })
 
-=======
->>>>>>> a47ed5d7cfdc1dd8452588f6f5faea464b5dfca5
 app.post('/customers', async (req,res) => {
     try {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
@@ -124,7 +121,6 @@ app.post('/customers/login' ,  async (req,res) => {
     }
 })
 
-<<<<<<< HEAD
 function authenticateToken(req , res , next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
@@ -137,8 +133,6 @@ function authenticateToken(req , res , next) {
         next()
     })
 }
-=======
->>>>>>> a47ed5d7cfdc1dd8452588f6f5faea464b5dfca5
 
 app.get("/api/customers",(req,res)=>{
     var id = req.body._id
