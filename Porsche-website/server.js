@@ -38,7 +38,7 @@ const db = client.db('Porsche');
 
 const customers = db.collection('Customers');
 const products = db.collection('Products');
-const admins = db.collection('Admin');
+const admins = db.collection('Admins');
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -107,8 +107,6 @@ app.post('/customers/login' ,  async (req,res) => {
     try {
         if( await bcyrpt.compare(req.body.password , customer.password) ) {
             const email = { email: req.body.email }
-            const accessToken = jwt.sign(email , process.env.ACCESS_TOKEN_SECRET)
-            res.json({accessToken: accessToken})
         }
         else {
             res.send("Incorrect")
@@ -119,17 +117,6 @@ app.post('/customers/login' ,  async (req,res) => {
     }
 })
 
-function authenticateToken(req , res , next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    if(token == null) return res.status(401)
-
-    jwt.verify(token , process.env.ACCESS_TOKEN_SECRET , (err , user) => {
-        if(err) return res.sendStatus(403)
-        req.user = user
-        next()
-    })
-}
 
 app.get("/api/customers",(req,res)=>{
     var id = req.body._id
@@ -305,6 +292,20 @@ app.delete("/api/products",(req,res)=>{
 /*      CRUD OPERATIONS FOR ADMIN COLLECTION IN MONGODB   */
 
 
+
+function authenticateToken(req , res , next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if(token == null) return res.status(401)
+
+    jwt.verify(token , process.env.ACCESS_TOKEN_SECRET , (err , user) => {
+        if(err) return res.sendStatus(403)
+        req.user = user
+        next()
+    })
+}
+
+
 app.post('/admins', async (req,res) => {
     try {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
@@ -322,13 +323,16 @@ app.post('/admins', async (req,res) => {
 
 
 app.post('/admins/login', async (req,res) => {
-    const admin = await admins.findOne({name : req.body.name})
+    const userEmail = req.body.email
+    const admin = await admins.findOne({email : userEmail})
+    console.log(admin)
     if(admin == null) {
-        return res.status(401).json({Error: "User not Found!"})
+        return res.status(401).json({Error: "Email not Found!"})
     }
     try {
         if( await bcyrpt.compare(req.body.password , admin.password) ) {
-            res.send("Success")
+            const accessToken = jwt.sign(userEmail , process.env.ACCESS_TOKEN_SECRET)
+            res.json({accessToken: accessToken})
         }
         else {
             res.send("Incorrect Password")
