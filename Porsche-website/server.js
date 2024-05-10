@@ -1,60 +1,59 @@
+/* SERVER SETUP */
 const express = require("express");
 
 const app = express();
 
-const port = 5000
+const dotenv = require('dotenv').config()
 
-require('dotenv').config()
+const jwt = require('jsonwebtoken')
 
+const ejs = require('ejs')
+
+const bcyrpt = require('bcrypt')
+
+app.set('view engine' , 'ejs')
+
+port = dotenv.port || 3001;
 
 app.use(express.json())
 
-console.log(express.json())
-
-
 const {MongoClient}=require('mongodb')
+
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+
+
+/* MONGODB SETUP */
+
 const url = "mongodb+srv://abdelrahman2004:software123@database.99j14ho.mongodb.net/"
-async function main(){
-    /**
-     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
-     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
-     */
- 
-
-    
-}
-
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
- 
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
- 
 
 const client = new MongoClient(url);
- 
 
-// Connect to the MongoDB cluster
-client.connect();
+client.connect().then( () => {
+    console.log('MongoDB Connected!');
+});
 
 const db = client.db('Porsche');
-const customers = db.collection('Customers');
-const ObjectId = require('mongodb').ObjectId;
-// Make the appropriate DB calls
-listDatabases(client);
 
-/*async function run() {
-    try {
-    }
-        finally {
-            // Ensures that the client will close when you finish/error
-            await client.close();
-          }
-    }
-*/
+const customers = db.collection('Customers');
+const products = db.collection('Products');
+const admins = db.collection('Admin');
+
+const ObjectId = require('mongodb').ObjectId;
+
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+
+/* MIDDLEWARE AND EXPRESS SETUP + ADDITIONAL FUNCTIONS */
 app.listen(port , ()=>{
     console.log("Server is running: listening to port " + port);
+});
+
+app.use((req , res , next)=>{
+    console.log("The middleware received your request");
+    next();
 });
 
 async function findOne(query , result) {
@@ -62,12 +61,59 @@ async function findOne(query , result) {
     result = ans
 }
 
-app.get("/v1/api/customers/",(req,res)=>{
-    nameSearch = req.body.name
-    console.log(nameSearch)
-    if(true) {
-        db.collection('Customers')
-        .findOne({CF_Name : nameSearch})
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+
+
+
+
+
+
+/*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
+
+
+app.post('/customers', async (req,res) => {
+    try {
+        const hashedPassword = await bcyrpt.hash(req.body.password , 10)
+        const data = {name : req.body.name , email : req.body.email ,  password : hashedPassword}
+        customers.insertOne(data).then(result => {
+            res.status(201).json(result)
+        })
+
+    }
+    catch(err) {
+        console.log(err.message)
+        res.status(500).json({Error: err.message})
+    }
+})
+
+app.post('/customers/login', async (req,res) => {
+    const customer = await customers.findOne({name : req.body.name})
+    if(customer == null) {
+        return res.status(401).json({Error: "User not Found!"})
+    }
+    try {
+        if( await bcyrpt.compare(req.body.password , customer.password) ) {
+            res.send("Success")
+        }
+        else {
+            res.send("Incorrect")
+        }
+    }
+    catch(err) {
+        res.status(500).json({Error: err.message})
+    }
+})
+
+
+
+app.get("/api/customers",(req,res)=>{
+    var id = req.body._id
+    console.log(id)
+    if(ObjectId.isValid(id)) {
+        customers
+        .findOne({_id : new ObjectId(id)})
         .then(doc =>{
             res.status(200).json(doc)
         })
@@ -75,29 +121,32 @@ app.get("/v1/api/customers/",(req,res)=>{
         .catch(err => {
             res.status(500).json({error: "Could not fetch the data"})
         })
-    }/*
+    }
     else {
         res.status(500).json({error: "Not a valid ID"})
-    }*/
+    }
 
 
 });
 
-app.post("/v1/api/customers",(req,res)=>{
+app.post("/api/customers",(req,res)=>{
+    
     const data = req.body
-    db.collection("Customers")
-    .insertMany(data)
+    customers
+    .insertOne(data)
     .then(result => {
         res.status(201).json(result)
     })
     .catch (err =>{
+        console.log(err.message)
         res.status(500).json({err:"could not be inserted"})
     })
+    
 });
 
-app.put("/v1/api/customers",(req,res)=>{
+app.put("/api/customers",(req,res)=>{
     const data= req.body
-    db.collection("Customers")
+    customers
     .insertOne(data)
     .then(result =>{
       res.status(201).json(result)
@@ -106,32 +155,25 @@ app.put("/v1/api/customers",(req,res)=>{
        res.status(500).json({err:"could not be inserted"})})
 });
 
-app.patch("/v1/api/customers",(req,res)=>{
-    const updates=req.body
-    id=req.body._id
-    if(ObjectId.isValid(id)){
-        db.collection('Customers')
-        .updateOne({_id: new ObjectId(id) },{$set:updates})
-        .then(result=>{
-            res.status(200).json(result)
-        })
-        .catch(err=>{
-            res.status(500).json({error:"could not update"})
 
-        })
-     } else { 
-        res.status(500).json({error:"not a valid ID"})
-
+app.patch("/api/customers",async(req,res)=>{
+    try {
+    var updateObject = req.body;
+    var id = req.body.id;
+    customers.updateOne({_id  : new ObjectId(id)}, {$set: updateObject} , {upsert : false});
+    res.status(200).json("Updated Record Successfully")
+    }
+    catch(error) {
+     res.status(500).json({Error: error.message})
     }
 });
 
-app.delete("/v1/api/customers",(req,res)=>{
+app.delete("/api/customers",(req,res)=>{
     id = req.body._id
-    console.log(req.params.id)
     if (ObjectId.isValid(id)){
-        db.collection("Customers")
+        customers
         .deleteOne({_id: new ObjectId(id)})
-        .then(result=>{res.status(204).json(result)
+        .then(result=>{res.status(204).json("Deleted Record")
         })
         .catch(err=>{
             res.status(500).json({error: "could not delete document"})
@@ -141,22 +183,215 @@ app.delete("/v1/api/customers",(req,res)=>{
         res.status(500).json({error:"invalid id"})
     }
 });
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
 
-app.use((req , res , next)=>{
-    console.log("The middleware received your request");
-    next();
-});
 
-/*const {connectToDb, getdbConn}=require('./Porsche')
-let db 
-connectToDb((err)=>{
-    if (!err){
-        app.listen(port,()=>{
-            console.log('app is listening on port', port)
+
+
+
+
+
+
+/*      CRUD OPERATIONS FOR PRODUCTS COLLECTION IN MONGODB   */
+app.get("/api/products",(req,res)=>{
+    var id = req.body._id
+    console.log(id)
+    if(ObjectId.isValid(id)) {
+        products
+        .findOne({_id : new ObjectId(id)})
+        .then(doc =>{
+            res.status(200).json(doc)
         })
-        db=getDbConn()
+
+        .catch(err => {
+            res.status(500).json({error: "Could not fetch the data"})
+        })
     }
     else {
-        console.log("Errorrrrr")
+        res.status(500).json({error: "Not a valid ID"})
     }
-})*/
+
+
+});
+
+app.post("/api/products",(req,res)=>{
+    
+    const data = req.body
+    products
+    .insertMany(data)
+    .then(result => {
+        res.status(201).json(result)
+    })
+    .catch (err =>{
+        console.log(err.message)
+        res.status(500).json({err:"could not be inserted"})
+    })
+    
+});
+
+app.put("/api/products",(req,res)=>{
+    const data= req.body
+    products
+    .insertOne(data)
+    .then(result =>{
+      res.status(201).json(result)
+      })
+    .catch(err =>{
+       res.status(500).json({err:"could not be inserted"})})
+});
+
+
+app.patch("/api/products",async(req,res)=>{
+    try {
+    var updateObject = req.body;
+    var id = req.body.id;
+    products.updateOne({_id  : new ObjectId(id)}, {$set: updateObject} , {upsert : false});
+    res.status(200).json("Updated Record Successfully")
+    }
+    catch(error) {
+     res.status(500).json({Error: error.message})
+    }
+});
+
+app.delete("/api/products",(req,res)=>{
+    id = req.body._id
+    if (ObjectId.isValid(id)){
+        products
+        .deleteOne({_id: new ObjectId(id)})
+        .then(result=>{res.status(204).json("Deleted Record")
+        })
+        .catch(err=>{
+            res.status(500).json({error: "could not delete document"})
+        })
+    
+    }else{
+        res.status(500).json({error:"invalid id"})
+    }
+});
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+/*      CRUD OPERATIONS FOR ADMIN COLLECTION IN MONGODB   */
+
+
+app.post('/admins', async (req,res) => {
+    try {
+        const hashedPassword = await bcyrpt.hash(req.body.password , 10)
+        const data = {name : req.body.name , email : req.body.email ,  password : hashedPassword}
+        admins.insertOne(data).then(result => {
+            res.status(201).json(result)
+        })
+
+    }
+    catch(err) {
+        console.log(err.message)
+        res.status(500).json({Error: err.message})
+    }
+})
+
+
+app.post('/admins/login', async (req,res) => {
+    const admin = await admins.findOne({name : req.body.name})
+    if(admin == null) {
+        return res.status(401).json({Error: "User not Found!"})
+    }
+    try {
+        if( await bcyrpt.compare(req.body.password , admin.password) ) {
+            res.send("Success")
+        }
+        else {
+            res.send("Incorrect Password")
+        }
+    }
+    catch(err) {
+        res.status(500).json({Error: err.message})
+    }
+})
+
+
+
+
+app.get("/api/admin",(req,res)=>{
+    var id = req.body._id
+    console.log(id)
+    if(ObjectId.isValid(id)) {
+        admins
+        .findOne({_id : new ObjectId(id)})
+        .then(doc =>{
+            res.status(200).json(doc)
+        })
+
+        .catch(err => {
+            res.status(500).json({error: "Could not fetch the data"})
+        })
+    }
+    else {
+        res.status(500).json({error: "Not a valid ID"})
+    }
+
+
+});
+
+app.post("/api/admin",(req,res)=>{
+    
+    const data = req.body
+    admins
+    .insertMany(data)
+    .then(result => {
+        res.status(201).json(result)
+    })
+    .catch (err =>{
+        console.log(err.message)
+        res.status(500).json({err:"could not be inserted"})
+    })
+    
+});
+
+app.put("/api/admin",(req,res)=>{
+    const data= req.body
+    admins
+    .insertOne(data)
+    .then(result =>{
+      res.status(201).json(result)
+      })
+    .catch(err =>{
+       res.status(500).json({err:"could not be inserted"})})
+});
+
+
+app.patch("/api/admin",async(req,res)=>{
+    try {
+    var updateObject = req.body;
+    var id = req.body.id;
+    admins.updateOne({_id  : new ObjectId(id)}, {$set: updateObject} , {upsert : false});
+    res.status(200).json("Updated Record Successfully")
+    }
+    catch(error) {
+     res.status(500).json({Error: error.message})
+    }
+});
+
+app.delete("/api/admin",(req,res)=>{
+    id = req.body._id
+    if (ObjectId.isValid(id)){
+        admins
+        .deleteOne({_id: new ObjectId(id)})
+        .then(result=>{res.status(204).json("Deleted Record")
+        })
+        .catch(err=>{
+            res.status(500).json({error: "could not delete document"})
+        })
+    
+    }else{
+        res.status(500).json({error:"invalid id"})
+    }
+});
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
