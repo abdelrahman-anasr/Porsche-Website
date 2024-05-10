@@ -74,7 +74,7 @@ async function findOne(query , result) {
 
 app.post('/customers/auth' , authenticateToken , async (req,res) => {
     const email = await customers.find({email : req.body.email})
-    res.json()
+    res.json(email)
 })
 
 app.post('/customers', async (req,res) => {
@@ -115,11 +115,13 @@ app.post('/customers/login' ,  async (req,res) => {
 function authenticateToken(req , res , next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-    if(token == null) return res.sendStatus(401)
-
+    if(token == null) return res.status(401).json({Error: "Token missing"})
+    console.log(process.env.ACCESS_TOKEN_SECRET)
     jwt.verify(token , process.env.ACCESS_TOKEN_SECRET) , (err , email) => {
         if(err) return res.sendStatus(403)
+        console.log("ok")
         req.email = email
+        console.log("Reached end point")
         next()
     }
 }
