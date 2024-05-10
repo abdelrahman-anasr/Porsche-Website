@@ -325,7 +325,7 @@ body, html {
 
 @font-face {
   font-family: porscheFont;
-  src: url(porschefont.ttf);
+  src: url(../fonts/porsche.ttf);
 }
 
 

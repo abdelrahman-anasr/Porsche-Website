@@ -1,11 +1,11 @@
 @font-face {
     font-family: porscheFont;
-    src: url(porsche.ttf);
+    src: url(../fonts/porsche.ttf);
 }
 
 body {
     font-family: 'porscheFont';
-    background-image: url('porsche.jpg');
+    background-image: url('../images/porsche.jpg');
     background-size: cover;
     margin: 0;
     padding: 0;
