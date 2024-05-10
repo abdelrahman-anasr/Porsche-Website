@@ -42,11 +42,14 @@ const admins = db.collection('Admins');
 
 const ObjectId = require('mongodb').ObjectId;
 
+
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
 
 
 /* MIDDLEWARE AND EXPRESS SETUP + ADDITIONAL FUNCTIONS */
+
+
 app.listen(port , ()=>{
     console.log("Server is running: listening to port " + port);
 });
@@ -60,6 +63,7 @@ async function findOne(query , result) {
     const ans = await customers.findOne(query);
     result = ans
 }
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -166,7 +170,7 @@ app.put("/api/customers",(req,res)=>{
 });
 
 
-app.patch("/api/customers",async(req,res)=>{
+app.patch("/api/customers",authenticateToken,async(req,res)=>{
     try {
     var updateObject = req.body;
     var id = req.body.id;
@@ -178,7 +182,7 @@ app.patch("/api/customers",async(req,res)=>{
     }
 });
 
-app.delete("/api/customers",(req,res)=>{
+app.delete("/api/customers",authenticateToken,(req,res)=>{
     id = req.body._id
     if (ObjectId.isValid(id)){
         customers
@@ -225,7 +229,7 @@ app.get("/api/products",(req,res)=>{
 
 });
 
-app.post("/api/products",(req,res)=>{
+app.post("/api/products",authenticateToken,(req,res)=>{
     
     const data = req.body
     products
@@ -240,7 +244,7 @@ app.post("/api/products",(req,res)=>{
     
 });
 
-app.put("/api/products",(req,res)=>{
+app.put("/api/products",authenticateToken,(req,res)=>{
     const data= req.body
     products
     .insertOne(data)
@@ -252,7 +256,7 @@ app.put("/api/products",(req,res)=>{
 });
 
 
-app.patch("/api/products",async(req,res)=>{
+app.patch("/api/products",authenticateToken,async(req,res)=>{
     try {
     var updateObject = req.body;
     var id = req.body.id;
@@ -264,7 +268,7 @@ app.patch("/api/products",async(req,res)=>{
     }
 });
 
-app.delete("/api/products",(req,res)=>{
+app.delete("/api/products",authenticateToken,(req,res)=>{
     id = req.body._id
     if (ObjectId.isValid(id)){
         products
