@@ -72,9 +72,16 @@ async function findOne(query , result) {
 
 /*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
 
-app.post('/customers/auth' , authenticateToken , async (req,res) => {
-    const email = await customers.find({email : req.body.email})
-    res.json(email)
+
+app.post('/customers/auth' , authenticateToken ,async (req,res) => {
+    try {
+    const userEmail = req.user.email
+    const customer = await customers.findOne({email : userEmail})
+    res.status(200).json(customer)
+    }
+    catch(err) {
+        res.status(500).json({Error: err.message})
+    }
 })
 
 app.post('/customers', async (req,res) => {
@@ -99,7 +106,7 @@ app.post('/customers/login' ,  async (req,res) => {
     }
     try {
         if( await bcyrpt.compare(req.body.password , customer.password) ) {
-            const email = req.body.email
+            const email = { email: req.body.email }
             const accessToken = jwt.sign(email , process.env.ACCESS_TOKEN_SECRET)
             res.json({accessToken: accessToken})
         }
@@ -115,15 +122,13 @@ app.post('/customers/login' ,  async (req,res) => {
 function authenticateToken(req , res , next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-    if(token == null) return res.status(401).json({Error: "Token missing"})
-    console.log(process.env.ACCESS_TOKEN_SECRET)
-    jwt.verify(token , process.env.ACCESS_TOKEN_SECRET) , (err , email) => {
+    if(token == null) return res.status(401)
+
+    jwt.verify(token , process.env.ACCESS_TOKEN_SECRET , (err , user) => {
         if(err) return res.sendStatus(403)
-        console.log("ok")
-        req.email = email
-        console.log("Reached end point")
+        req.user = user
         next()
-    }
+    })
 }
 
 app.get("/api/customers",(req,res)=>{
