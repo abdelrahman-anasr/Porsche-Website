@@ -73,8 +73,7 @@ async function findOne(query , result) {
 /*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
 
 app.post('/customers/auth' , authenticateToken , async (req,res) => {
-    const email = await customers.find({email : req.body.email})
-    res.json(email)
+    res.json(customers.find({email : req.body.email}))
 })
 
 app.post('/customers', async (req,res) => {
@@ -115,15 +114,13 @@ app.post('/customers/login' ,  async (req,res) => {
 function authenticateToken(req , res , next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-    if(token == null) return res.status(401).json({Error: "Token missing"})
-    console.log(process.env.ACCESS_TOKEN_SECRET)
+    if(token == null) return res.sendStatus(407)
+
     jwt.verify(token , process.env.ACCESS_TOKEN_SECRET) , (err , email) => {
         if(err) return res.sendStatus(403)
-        console.log("ok")
         req.email = email
-        console.log("Reached end point")
         next()
-    }
+    })
 }
 
 app.get("/api/customers",(req,res)=>{
@@ -205,11 +202,6 @@ app.delete("/api/customers",(req,res)=>{
 
 
 
-
-
-
-
-
 /*      CRUD OPERATIONS FOR PRODUCTS COLLECTION IN MONGODB   */
 
 app.get("/api/products",(req,res)=>{
@@ -288,12 +280,6 @@ app.delete("/api/products",(req,res)=>{
     }
 });
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
-
-
-
-
-
-
 
 
 
@@ -413,4 +399,3 @@ app.delete("/api/admin",(req,res)=>{
     }
 });
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
-
