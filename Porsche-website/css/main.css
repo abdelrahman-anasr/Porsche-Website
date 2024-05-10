@@ -1,6 +1,6 @@
 @font-face {
     font-family: porscheFont;
-    src: url(porsche.ttf);
+    src: url(/fonts/porsche.ttf);
 }
 body, html {
     height: 100%;

@@ -73,7 +73,14 @@ async function findOne(query , result) {
 /*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
 
 app.post('/customers/auth' , authenticateToken , async (req,res) => {
-    res.json(customers.find({email : req.body.email}))
+    try {
+
+    const customer = await customers.findOne({email : req.body.email})
+    res.status(200).json(customer)
+    }
+    catch(err) {
+        res.status(500).json({Error: err.message})
+    }
 })
 
 app.post('/customers', async (req,res) => {
@@ -114,10 +121,11 @@ app.post('/customers/login' ,  async (req,res) => {
 function authenticateToken(req , res , next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-    if(token == null) return res.sendStatus(407)
+    if(token == null) return res.status(401)
 
-    jwt.verify(token , process.env.ACCESS_TOKEN_SECRET) , (err , email) => {
+    jwt.verify(token , process.env.ACCESS_TOKEN_SECRET , (err , email) => {
         if(err) return res.sendStatus(403)
+        console.log("ok")
         req.email = email
         next()
     })
