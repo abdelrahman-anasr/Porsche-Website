@@ -72,6 +72,9 @@ async function findOne(query , result) {
 
 /*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
 
+app.post('/customers/auth' , authenticateToken , async (req,res) => {
+    res.json(customers.find({email : req.body.email}))
+})
 
 app.post('/customers', async (req,res) => {
     try {
@@ -88,14 +91,16 @@ app.post('/customers', async (req,res) => {
     }
 })
 
-app.post('/customers/login', async (req,res) => {
-    const customer = await customers.findOne({name : req.body.name})
+app.post('/customers/login' ,  async (req,res) => {
+    const customer = await customers.findOne({email : req.body.email})
     if(customer == null) {
         return res.status(401).json({Error: "User not Found!"})
     }
     try {
         if( await bcyrpt.compare(req.body.password , customer.password) ) {
-            res.send("Success")
+            const email = req.body.email
+            const accessToken = jwt.sign(email , process.env.ACCESS_TOKEN_SECRET)
+            res.json({accessToken: accessToken})
         }
         else {
             res.send("Incorrect")
@@ -106,7 +111,17 @@ app.post('/customers/login', async (req,res) => {
     }
 })
 
+function authenticateToken(req , res , next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if(token == null) return res.sendStatus(407)
 
+    jwt.verify(token , process.env.ACCESS_TOKEN_SECRET) , (err , email) => {
+        if(err) return res.sendStatus(403)
+        req.email = email
+        next()
+    }
+}
 
 app.get("/api/customers",(req,res)=>{
     var id = req.body._id
@@ -193,6 +208,7 @@ app.delete("/api/customers",(req,res)=>{
 
 
 /*      CRUD OPERATIONS FOR PRODUCTS COLLECTION IN MONGODB   */
+
 app.get("/api/products",(req,res)=>{
     var id = req.body._id
     console.log(id)
