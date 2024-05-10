@@ -72,18 +72,6 @@ async function findOne(query , result) {
 
 /*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
 
-
-app.post('/customers/auth' , authenticateToken ,async (req,res) => {
-    try {
-    const userEmail = req.user.email
-    const customer = await customers.findOne({email : userEmail})
-    res.status(200).json(customer)
-    }
-    catch(err) {
-        res.status(500).json({Error: err.message})
-    }
-})
-
 app.post('/customers', async (req,res) => {
     try {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
@@ -107,6 +95,7 @@ app.post('/customers/login' ,  async (req,res) => {
     try {
         if( await bcyrpt.compare(req.body.password , customer.password) ) {
             const email = { email: req.body.email }
+            res.status(200).json({Status : "Success"})
         }
         else {
             res.send("Incorrect")
