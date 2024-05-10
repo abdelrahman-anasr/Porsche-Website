@@ -39,6 +39,7 @@ const db = client.db('Porsche');
 const customers = db.collection('Customers');
 const products = db.collection('Products');
 const admins = db.collection('Admins');
+const orders = db.collection('Orders');
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -75,17 +76,6 @@ async function findOne(query , result) {
 
 
 /*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
-
-app.post('/customers/auth' , authenticateToken , async (req,res) => {
-    try {
-
-    const customer = await customers.findOne({email : req.body.email})
-    res.status(200).json(customer)
-    }
-    catch(err) {
-        res.status(500).json({Error: err.message})
-    }
-})
 
 app.post('/customers', async (req,res) => {
     try {
@@ -294,9 +284,24 @@ app.delete("/api/products",authenticateToken,(req,res)=>{
 
 
 
+
+
+
+
 /*      CRUD OPERATIONS FOR ADMIN COLLECTION IN MONGODB   */
 
 
+
+app.post('/admins/auth' , authenticateToken , async (req,res) => {
+    try {
+
+    const admin = await admins.findOne({email : req.body.email})
+    res.status(200).json(admin)
+    }
+    catch(err) {
+        res.status(500).json({Error: err.message})
+    }
+})
 
 function authenticateToken(req , res , next) {
     const authHeader = req.headers['authorization']
@@ -351,7 +356,7 @@ app.post('/admins/login', async (req,res) => {
 
 
 
-app.get("/api/admin",(req,res)=>{
+app.get("/admins",(req,res)=>{
     var id = req.body._id
     console.log(id)
     if(ObjectId.isValid(id)) {
@@ -372,7 +377,7 @@ app.get("/api/admin",(req,res)=>{
 
 });
 
-app.post("/api/admin",(req,res)=>{
+app.post("/admins",(req,res)=>{
     
     const data = req.body
     admins
@@ -387,7 +392,7 @@ app.post("/api/admin",(req,res)=>{
     
 });
 
-app.put("/api/admin",(req,res)=>{
+app.put("/admins",(req,res)=>{
     const data= req.body
     admins
     .insertOne(data)
@@ -399,7 +404,7 @@ app.put("/api/admin",(req,res)=>{
 });
 
 
-app.patch("/api/admin",async(req,res)=>{
+app.patch("/admins",async(req,res)=>{
     try {
     var updateObject = req.body;
     var id = req.body.id;
@@ -411,7 +416,7 @@ app.patch("/api/admin",async(req,res)=>{
     }
 });
 
-app.delete("/api/admin",(req,res)=>{
+app.delete("/admins",(req,res)=>{
     id = req.body._id
     if (ObjectId.isValid(id)){
         admins
@@ -425,5 +430,75 @@ app.delete("/api/admin",(req,res)=>{
     }else{
         res.status(500).json({error:"invalid id"})
     }
+});
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+
+/*      CRUD OPERATIONS FOR ORDERS COLLECTION IN MONGODB   */
+
+app.get("/orders",async (req,res)=>{
+    var id = req.body.order_id
+    console.log(id)
+    const order = await orders.findOne({order_id : id})
+    if(order == null) {
+        res.status(400).json({Status : "Order not found"})
+    }
+    else {
+        res.status(200).json(order);
+    }
+
+
+});
+
+app.post("/orders",authenticateToken,(req,res)=>{
+    
+    const data = req.body
+    orders
+    .insertMany(data)
+    .then(result => {
+        res.status(201).json(result)
+    })
+    .catch (err =>{
+        console.log(err.message)
+        res.status(500).json({err:"could not be inserted"})
+    })
+    
+});
+
+app.put("/orders",authenticateToken,(req,res)=>{
+    const data= req.body
+    orders
+    .insertOne(data)
+    .then(result =>{
+      res.status(201).json(result)
+      })
+    .catch(err =>{
+       res.status(500).json({err:"could not be inserted"})})
+});
+
+
+app.patch("/orders",authenticateToken,async(req,res)=>{
+    try {
+    var updateObject = req.body;
+    var id = req.body.order_id;
+    orders.updateOne({order_id : id}, {$set: updateObject} , {upsert : false});
+    res.status(200).json("Updated Record Successfully")
+    }
+    catch(error) {
+     res.status(500).json({Error: error.message})
+    }
+});
+
+app.delete("/orders",authenticateToken,(req,res)=>{
+    id = req.body.order_id
+    orders
+        .deleteOne({order_id : id})
+        .then(result=>{res.status(204).json("Deleted Record")
+        })
+        .catch(err=>{
+            res.status(500).json({error: "could not delete document"})
+        })
+
 });
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
