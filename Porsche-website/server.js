@@ -349,10 +349,8 @@ app.post('/admins', async (req,res) => {
         const token=createToken(data.email)
         //res.cookie('jwt',token,{maxAge:2*60*1000})
         res.json(data)*/
-        Admin.create(data).then((ans) => {
-            console.log("admins is added")
-            res.status(201).json(ans)
-        })
+        const admin = await Admin.create(data)
+        res.status(201).json(admin)
     }
     catch(err) {
         console.log(err.message)
