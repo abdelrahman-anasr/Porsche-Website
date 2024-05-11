@@ -23,7 +23,7 @@ const {MongoClient}=require('mongodb')
 
 const cookies=require('cookie-parser');
 const Customer = require("./models/CustomerModel");
-const Admins = require("./models/AdminModel");
+const Admin = require("./models/AdminModel");
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -73,6 +73,22 @@ async function findOne(query , result) {
 
 app.get('/' , (req , res) => {
     res.render('index.ejs')
+})
+
+app.get('/views/aboutpage.ejs' , (req , res) => {
+    res.render('aboutpage.ejs')
+})
+
+app.get('/views/contact.ejs' , (req , res) => {
+    res.render('contact.ejs')
+})
+
+app.get('/views/login.ejs' , (req , res) => {
+    res.render('login.ejs')
+})
+
+app.get('/views/register.ejs' , (req , res) => {
+    res.render('register.ejs')
 })
 
 //app.use(cookies)
@@ -349,12 +365,6 @@ app.post('/admins', async (req,res) => {
     try {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
         const data = {adminId : req.body.adminId , first_name : req.body.first_name , last_name : req.body.last_name , email : req.body.email ,  password : hashedPassword}
-        /*admins.insertOne(data).then(result => {
-            res.status(201).json(result)
-        })
-        const token=createToken(data.email)
-        //res.cookie('jwt',token,{maxAge:2*60*1000})
-        res.json(data)*/
         const adminResult = await Admin.create(data)
         res.status(200).json(adminResult)
     }
@@ -369,7 +379,7 @@ app.post('/admins/login' ,  async (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
     try{
-        const admin = await Admins.login(email, password)
+        const admin = await Admin.login(email, password)
         console.log("Found Admin")
         if(admin === null){
             res.status(500).json({Error: "Cant find admin!"})

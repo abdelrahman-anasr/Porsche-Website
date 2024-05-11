@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Register - Porsche™</title>
+    <link rel="icon" href="../images/porsche_logo.svg" type="image/icon type">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../css/main.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../css/main.css" rel="stylesheet"> 
+</head>
+<body>
+    <div id="sidebar" class="sidebar">
+        <a href="" class="closebtn" onclick="closeNav()" style="font-family: porscheFont;">X</a>
+        <a href="#" style="font-family: porscheFont;" onclick="opensecondNav()">Car Models</a>
+        <a href="../views/locations.html" style="font-family: porscheFont;">Locations</a>
+        <a href="#" style="font-family: porscheFont;">Clients</a>
+        <a href="../views/Contact.html" style="font-family: porscheFont;">Contact</a>
+        <div id="secondSidebar" class="secondSidebar">
+          <span href="#" onclick="closeSecondNav()" class="secondX">X</span>
+          <div style="height: 75px;"></div>
+          <a><img src="../images/911 small.webp" style="width: 175px;height: 100px;"></a>
+          <a><img src="../images/718 small.webp" style="width: 175px;height: 100px;"></a>
+          <a><img src="../images/cayenne small.webp" style="width: 175px;height: 100px;"></a>
+          <a><img src="../images/macan small.webp" style="width: 175px;height: 100px;"></a>
+          <a><img src="../images/panamera small.webp" style="width: 175px;height: 100px;"></a>
+        </div>
+      </div>
+    
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+          <input type="image" src="../images/porsche_logo.svg" class="overlappingLogo" width="45" height="45" onclick="openNav()">
+          <div class="gapDiv"></div>
+          <a class="navbar-brand" href="#" style="font-family: porscheFont; font-size: 22px;">Porsche™</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="spacerDiv"></div>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/" style="font-family: porscheFont; color: white;text-decoration: none;">Home</a>
+                <a class="nav-item nav-link" href="../views/aboutpage.ejs" style="font-family: porscheFont; color: white;text-decoration: none;">About</a>
+                <a class="nav-item nav-link" href="../views/contact.ejs" style="font-family: porscheFont; color: white;text-decoration: none;">Contact Us</a>
+                <a class="nav-item nav-link" href="../views/login.ejs" style="font-family: porscheFont; color: white;text-decoration: none; margin-left: 350px; margin-right: 0px;">login</a>
+              </div>
+          </div>
+        </nav>
+      <hr class="red" />
+      <hr class="gold" />
+    <div class="containerx">
+        <div class="typed-out" style="color:#B12B28;">PORSCHE</div>
+        <video autoplay muted loop id="myVideo">
+            <source src="../videos/porscheVid.mp4">
+        </video>
+
+        <div class="content">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h1>Welcome! Register here</h1>
+                    <p>Please fill in this form to register.</p>
+                    <hr>
+
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" class="form-control" style="background-color: #EBD698;" placeholder="Email Address" name="email" id="email" required><br>
+
+
+                    <label for="dob">Date of birth:</label>
+                    <input type="date" class="form-control"style="background-color: #EBD698;" id="dob" name="dob"><br>
+
+                    <label for="username"><b>Username:</b></label>
+                    <input type="text" class="form-control" style="background-color: #EBD698;"placeholder="Username" name="username" id="username" required><br>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" class="form-control"style="background-color: #EBD698;" placeholder="Password" name="psw" id="psw" required><br>
+
+                    <button id="myBtn" class="btn btn-primary custom-btn" onclick="javascript:alert('Registered Successfully!')">Register</button>
+
+                </div>
+            </div>
+            
+            <div class="row justify-content-center mt-3">
+              <div class="col-md-6 text-center">
+                  <div class="container signin">
+                      <p>Already have an account? <a href="../views/login.html">Sign in</a>.</p>
+                  </div>
+              </div>
+          </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        var input = document.getElementById("myInput");
+        input.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("myBtn").click();
+            }
+        });
+    </script>
+</body>
+</html>

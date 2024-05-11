@@ -4,12 +4,17 @@ const mongoose = require('mongoose')
 const url = "mongodb+srv://abdelrahman2004:software123@database.99j14ho.mongodb.net/"
 
 mongoose.connect(url).then((ans) => { 
-    console.log("ConnectedSuccessful") 
+    console.log("Connecting SuccesFul!") 
   }).catch((err) => { 
     console.log("Error in the Connection") 
   }) 
 
 const Schema = mongoose.Schema
+
+
+const mongoDb = mongoose.connection
+
+
 
 const AdminSchema =new Schema({
     adminId:{
@@ -38,7 +43,7 @@ const AdminSchema =new Schema({
     }
 })
 
-const AdminCollection = mongoose.model("Admins" , AdminSchema)
+const AdminCollection = mongoDb.model("Admins" , AdminSchema)
 
 AdminSchema.statics.login=async function(email,password){
     console.log("Email is: " + email + " and Password is: " + password)
@@ -58,6 +63,6 @@ AdminSchema.statics.login=async function(email,password){
 }
 
 
-const Admins = mongoose.model('Admins' , AdminSchema)
+const Admins = mongoose.model('Admin' , AdminSchema)
 
 module.exports = Admins
