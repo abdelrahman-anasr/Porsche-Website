@@ -17,10 +17,11 @@ port = dotenv.port || 3001;
 
 app.use(express.json())
 
-const {MongoClient, Admin}=require('mongodb')
+const {MongoClient}=require('mongodb')
 
 const cookies=require('cookie-parser');
 const Customer = require("./models/CustomerModel");
+const Admin = require("./models/AdminModel");
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -68,11 +69,11 @@ async function findOne(query , result) {
     result = ans
 }
 
-app.use(cookies)
+//app.use(cookies)
 
-const createToken = (id)=>{
-    return jwt.sign({id},ACCESS_TOKEN_SECRET,{expiresIn:3*60*1000})
-}
+//const createToken = (id)=>{
+  //  return jwt.sign({id},ACCESS_TOKEN_SECRET,{expiresIn:3*60*1000})
+//}
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
@@ -346,7 +347,7 @@ app.post('/admins', async (req,res) => {
             res.status(201).json(result)
         })
         const token=createToken(data.email)
-        res.cookie('jwt',token,{maxAge:2*60*1000})
+        //res.cookie('jwt',token,{maxAge:2*60*1000})
         res.json(data)
     }
     catch(err) {
@@ -357,9 +358,17 @@ app.post('/admins', async (req,res) => {
 
 
 app.post('/admins/login' ,  async (req,res) => {
-    const {email, password} = req.body
+    const email = req.body.email;
+    const password = req.body.password;
     try{
-        const user = await Admin.login({email, password})
+        const admin = await Admin.login(email, password)
+        console.log("Found Admin")
+        if(admin === null){
+            res.status(500).json({Error: "Cant find admin!"})
+        }
+        else{
+            res.status(200).json(admin)
+        }
     }
     catch(err){
         console.log(err)
