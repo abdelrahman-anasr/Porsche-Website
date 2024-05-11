@@ -1,7 +1,8 @@
 const brcypt = require('bcrypt')
+const { Admin } = require('mongodb')
 const mongoose = require('mongoose')
 
-const url = "mongodb+srv://abdelrahman2004:software123@database.99j14ho.mongodb.net/"
+const url = "mongodb+srv://abdelrahman2004:software123@database.99j14ho.mongodb.net/Porsche"
 
 mongoose.connect(url).then((ans) => { 
     console.log("Connecting SuccesFul!") 
@@ -43,15 +44,12 @@ const AdminSchema =new Schema({
     }
 })
 
-const AdminCollection = mongoDb.model("Admins" , AdminSchema)
+
 
 AdminSchema.statics.login=async function(email,password){
     console.log("Email is: " + email + " and Password is: " + password)
     const admin=await this.findOne({email:email})
-    console.log("All records: " + await AdminCollection.find())
-    console.log(admin)
     if(admin){
-        console.log(password)
         const auth=await brcypt.compare(password,admin.password)
          if (auth){
             return admin
@@ -61,6 +59,7 @@ AdminSchema.statics.login=async function(email,password){
     }
     throw Error('Incorrect email')
 }
+
 
 
 const Admins = mongoose.model('Admin' , AdminSchema)
