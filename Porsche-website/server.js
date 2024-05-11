@@ -66,6 +66,8 @@ app.use((req , res , next)=>{
     next();
 });
 
+app.use(cookies())
+
 async function findOne(query , result) {
     const ans = await customers.findOne(query);
     result = ans
@@ -91,11 +93,11 @@ app.get('/views/register.ejs' , (req , res) => {
     res.render('register.ejs')
 })
 
-//app.use(cookies)
 
-//const createToken = (id)=>{
-  //  return jwt.sign({id},ACCESS_TOKEN_SECRET,{expiresIn:3*60*1000})
-//}
+
+const createToken = (id)=>{
+    return jwt.sign({id},ACCESS_TOKEN_SECRET,{expiresIn:3*60*1000})
+}
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
@@ -127,13 +129,21 @@ app.post('/customers', async (req,res) => {
 })
 
 app.post('/customers/login' ,  async (req,res) => {
-        const {email, password} = req.body
-        try{
-            const user = await Customer.login({email, password})
+    const email = req.body.email;
+    const password = req.body.password;
+    try{
+        const customer = await Customer.login(email, password)
+        console.log("Found Customer")
+        if(customer === null){
+            res.status(500).json({Error: "Cant find customer!"})
         }
-        catch(err){
-            console.log(err)
+        else{
+            res.redirect('/set-cookie')
         }
+    }
+    catch(err){
+        console.log(err)
+    }
         
 })
 
@@ -171,11 +181,13 @@ app.get("/api/customers",(req,res)=>{
 
 });
 
-app.get('/set-cookie',(req,res)=>{
+app.get('/set-cookies',(req,res)=>{
+    console.log('set cookie')
     res.cookie('newCustomer',true)
     res.cookie('isEmployee',false,{maxAge:1*60*1000})
 })
 app.get('/get-cookies',(req,res)=>{
+    console.log('get cookie')
     const cookies=req.cookies
     res.json(cookies)
 })
@@ -385,7 +397,7 @@ app.post('/admins/login' ,  async (req,res) => {
             res.status(500).json({Error: "Cant find admin!"})
         }
         else{
-            res.status(200).json(admin)
+            res.redirect('/set-cookie')
         }
     }
     catch(err){
