@@ -1,0 +1,15 @@
+const jwt = require ('jasonwebtoken')
+const requireAuth = (reg, res, next) => {
+const token = req. cookie.jwt
+if (token) {
+    jwt. verify(token, '388cd170b5793', (err, decodedToken) => {
+        if(err){
+            console.log(err)
+        }else{
+            res.json(decodedToken)
+        }
+    })
+}else{
+    res. redirect('/login')
+}}
+module.exports=requireAuth

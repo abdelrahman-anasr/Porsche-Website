@@ -1,5 +1,6 @@
 /* SERVER SETUP */
 const express = require("express");
+const router=express.Router()
 
 const app = express();
 
@@ -22,9 +23,11 @@ app.use(express.static('./public'))
 const {MongoClient}=require('mongodb')
 
 const cookies=require('cookie-parser');
+router.use(cookies)
 const Customer = require("./models/CustomerModel");
 const Admin = require("./models/AdminModel");
 const Products = require("./models/ProductModel");
+const requireAuth=require('./middleware/authMiddleware')
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -97,7 +100,7 @@ app.get('/views/register.ejs' , (req , res) => {
 
 
 const createToken = (id)=>{
-    return jwt.sign({id},ACCESS_TOKEN_SECRET,{expiresIn:3*60*1000})
+    return jwt.sign({id},'388cd170b5793',{expiresIn:3*60*1000})
 }
 
 
@@ -117,6 +120,8 @@ app.post('/customers', async (req,res) => {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
         const data = {customerId : req.body.customerId , first_name : req.body.first_name , last_name : req.body.last_name , email : req.body.email ,  password : hashedPassword}
         const customerResult = await Customer.create(data)
+        const token=createToken(data.email)
+        res.cookie('jwt',token,{maxAge: 2*60*1000})
         res.status(200).json(customerResult)
     }
     catch(err) {
@@ -129,6 +134,7 @@ app.post('/customers/login' ,  async (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
     try{
+        console.log("entering function")
         const customer = await Customer.login(email, password)
         console.log("Found Customer")
         if(customer === null){
@@ -182,6 +188,7 @@ app.get('/set-cookies',(req,res)=>{
     console.log('set cookie')
     res.cookie('newCustomer',true)
     res.cookie('isEmployee',false,{maxAge:1*60*1000})
+    res.status(200).json({status: "success"})
 })
 app.get('/get-cookies',(req,res)=>{
     console.log('get cookie')
@@ -363,6 +370,7 @@ app.get('/set-cookie',(req,res)=>{
     console.log('cookie is set')
     res.cookie('newAdmin',true)
     res.cookie('isEmployee',false,{maxAge:1*60*1000})
+    res.status(200).json({status: "success"})
 })
 app.get('/get-cookies',(req,res)=>{
     console.log('get cookie')
@@ -375,6 +383,8 @@ app.post('/admins', async (req,res) => {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
         const data = {adminId : req.body.adminId , first_name : req.body.first_name , last_name : req.body.last_name , email : req.body.email ,  password : hashedPassword}
         const adminResult = await Admin.create(data)
+        const token=createToken(data.email)
+        res.cookie('jwt',token,{maxAge: 2*60*1000})
         res.status(200).json(adminResult)
     }
     catch(err) {
@@ -388,13 +398,16 @@ app.post('/admins/login' ,  async (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
     try{
+        console.log("entering function")
         const admin = await Admin.login(email, password)
         console.log("Found Admin")
         if(admin === null){
             res.status(500).json({Error: "Cant find admin!"})
         }
-        else{
-            res.redirect('/set-cookie')
+        else{  
+          //  res.send(admin)
+            res.status(201).redirect('/set-cookie')
+            
         }
     }
     catch(err){
