@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const brcypt = require('bcrypt')
 const mongoose = require('mongoose')
 
 const url = "mongodb+srv://abdelrahman2004:software123@database.99j14ho.mongodb.net/"
@@ -9,7 +9,9 @@ mongoose.connect(url).then((ans) => {
     console.log("Error in the Connection") 
   }) 
 
-const AdminSchema = mongoose.Schema({
+const Schema = mongoose.Schema
+
+const AdminSchema =new Schema({
     adminId:{
         type:Number,
         required:true
@@ -36,12 +38,15 @@ const AdminSchema = mongoose.Schema({
     }
 })
 
+const AdminCollection = mongoose.model('Admins', AdminSchema)
+
 AdminSchema.statics.login=async function(email,password){
-    console.log(email)
+    console.log("Email is: " + email + " and Password is: " + password)
     const admin=await this.findOne({email:email})
-    console.log("Testing testing")
+    console.log("All records: " + await AdminCollection.find())
     console.log(admin)
     if(admin){
+        console.log(password)
         const auth=await brcypt.compare(password,admin.password)
          if (auth){
             return admin
@@ -53,6 +58,8 @@ AdminSchema.statics.login=async function(email,password){
 }
 
 
-const Admins = mongoose.model('Admin' , AdminSchema)
+const Admins = mongoose.model('Admins' , AdminSchema)
+
+await Admins.createCollection
 
 module.exports = Admins

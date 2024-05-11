@@ -342,13 +342,17 @@ app.get('/get-cookies',(req,res)=>{
 app.post('/admins', async (req,res) => {
     try {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
-        const data = {name : req.body.name , email : req.body.email ,  password : hashedPassword}
-        admins.insertOne(data).then(result => {
+        const data = {adminId : req.body.adminId , first_name : req.body.first_name , last_name : req.body.last_name , email : req.body.email ,  password : hashedPassword}
+        /*admins.insertOne(data).then(result => {
             res.status(201).json(result)
         })
         const token=createToken(data.email)
         //res.cookie('jwt',token,{maxAge:2*60*1000})
-        res.json(data)
+        res.json(data)*/
+        Admin.create(data).then((ans) => {
+            console.log("admins is added")
+            res.status(201).json(ans)
+        })
     }
     catch(err) {
         console.log(err.message)
