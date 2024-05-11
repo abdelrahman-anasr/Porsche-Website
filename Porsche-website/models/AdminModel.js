@@ -27,10 +27,11 @@ const AdminSchema = mongoose.Schema({
 })
 AdminSchema.statics.login=async function(email,password){
     const admin=await this.findOne({email:email})
+    console.log("Found email")
     if(admin){
-        const auth=await brcypt.compare(password,customer.password)
+        const auth=await brcypt.compare(password,admin.password)
          if (auth){
-            return customer
+            return admin
 
          }
         throw Error('Incorrect password')
