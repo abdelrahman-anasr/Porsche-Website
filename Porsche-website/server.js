@@ -17,7 +17,10 @@ port = dotenv.port || 3001;
 
 app.use(express.json())
 
-const {MongoClient}=require('mongodb')
+const {MongoClient, Admin}=require('mongodb')
+
+const cookies=require('cookie-parser');
+const Customer = require("./models/CustomerModel");
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -65,6 +68,12 @@ async function findOne(query , result) {
     result = ans
 }
 
+app.use(cookies)
+
+const createToken = (id)=>{
+    return jwt.sign({id},ACCESS_TOKEN_SECRET,{expiresIn:3*60*1000})
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -84,7 +93,9 @@ app.post('/customers', async (req,res) => {
         customers.insertOne(data).then(result => {
             res.status(201).json(result)
         })
-
+        const token=createToken(data.email)
+        res.cookie('jwt',token,{maxAge:3*60*1000})
+        res.json(data)
     }
     catch(err) {
         console.log(err.message)
@@ -93,22 +104,14 @@ app.post('/customers', async (req,res) => {
 })
 
 app.post('/customers/login' ,  async (req,res) => {
-    const customer = await customers.findOne({email : req.body.email})
-    if(customer == null) {
-        return res.status(401).json({Error: "User not Found!"})
-    }
-    try {
-        if( await bcyrpt.compare(req.body.password , customer.password) ) {
-            const email = { email: req.body.email }
-            res.status(200).json({Status : "Success"})
+        const {email, password} = req.body
+        try{
+            const user = await Customer.login({email, password})
         }
-        else {
-            res.send("Incorrect")
+        catch(err){
+            console.log(err)
         }
-    }
-    catch(err) {
-        res.status(500).json({Error: err.message})
-    }
+        
 })
 
 function authenticateToken(req , res , next) {
@@ -144,6 +147,15 @@ app.get("/api/customers",(req,res)=>{
 
 
 });
+
+app.get('/set-cookie',(req,res)=>{
+    res.cookie('newCustomer',true)
+    res.cookie('isEmployee',false,{maxAge:1*60*1000})
+})
+app.get('/get-cookies',(req,res)=>{
+    const cookies=req.cookies
+    res.json(cookies)
+})
 
 app.post("/api/customers",(req,res)=>{
     
@@ -315,6 +327,16 @@ function authenticateToken(req , res , next) {
     })
 }
 
+app.get('/set-cookie',(req,res)=>{
+    console.log('cookie is set')
+    res.cookie('newAdmin',true)
+    res.cookie('isEmployee',false,{maxAge:1*60*1000})
+})
+app.get('/get-cookies',(req,res)=>{
+    console.log('get cookie')
+    const cookies=req.cookies
+    res.json(cookies)
+})
 
 app.post('/admins', async (req,res) => {
     try {
@@ -323,7 +345,9 @@ app.post('/admins', async (req,res) => {
         admins.insertOne(data).then(result => {
             res.status(201).json(result)
         })
-
+        const token=createToken(data.email)
+        res.cookie('jwt',token,{maxAge:2*60*1000})
+        res.json(data)
     }
     catch(err) {
         console.log(err.message)
@@ -332,25 +356,15 @@ app.post('/admins', async (req,res) => {
 })
 
 
-app.post('/admins/login', async (req,res) => {
-    const userEmail = req.body.email
-    const admin = await admins.findOne({email : userEmail})
-    console.log(admin)
-    if(admin == null) {
-        return res.status(401).json({Error: "Email not Found!"})
+app.post('/admins/login' ,  async (req,res) => {
+    const {email, password} = req.body
+    try{
+        const user = await Admin.login({email, password})
     }
-    try {
-        if( await bcyrpt.compare(req.body.password , admin.password) ) {
-            const accessToken = jwt.sign(userEmail , process.env.ACCESS_TOKEN_SECRET)
-            res.json({accessToken: accessToken})
-        }
-        else {
-            res.send("Incorrect Password")
-        }
+    catch(err){
+        console.log(err)
     }
-    catch(err) {
-        res.status(500).json({Error: err.message})
-    }
+    
 })
 
 

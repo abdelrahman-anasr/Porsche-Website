@@ -26,5 +26,17 @@ const CustomerSchema = mongoose.Schema({
     }
 })
 
-const Customer = mongoose.model('Customers' , CustomerSchema)
+CustomerSchema.statics.login=async function(email,password){
+    const customer=await this.findOne({email:email})
+    if(customer){
+        const auth=await brcypt.compare(password,customer.password)
+         if (auth){
+            return customer
+         }
+        throw Error('Incorrect password')
+    }
+    throw Error('Incorrect email')
+}
+
+const Customer = mongoose.model('Customer' , CustomerSchema)
 module.exports = Customer

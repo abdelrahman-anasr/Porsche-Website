@@ -25,7 +25,19 @@ const AdminSchema = mongoose.Schema({
         type:Number
     }
 })
+AdminSchema.statics.login=async function(email,password){
+    const admin=await this.findOne({email:email})
+    if(admin){
+        const auth=await brcypt.compare(password,customer.password)
+         if (auth){
+            return customer
 
-const Admins = mongoose.model('Admins' , AdminSchema)
+         }
+        throw Error('Incorrect password')
+    }
+    throw Error('Incorrect email')
+}
+
+const Admins = mongoose.model('Admin' , AdminSchema)
 
 module.exports = Admins
