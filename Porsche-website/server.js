@@ -17,11 +17,13 @@ port = dotenv.port || 3001;
 
 app.use(express.json())
 
+app.use(express.static('./public'))
+
 const {MongoClient}=require('mongodb')
 
 const cookies=require('cookie-parser');
 const Customer = require("./models/CustomerModel");
-const Admin = require("./models/AdminModel");
+const Admins = require("./models/AdminModel");
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -68,6 +70,10 @@ async function findOne(query , result) {
     const ans = await customers.findOne(query);
     result = ans
 }
+
+app.get('/' , (req , res) => {
+    res.render('index.ejs')
+})
 
 //app.use(cookies)
 
@@ -349,8 +355,8 @@ app.post('/admins', async (req,res) => {
         const token=createToken(data.email)
         //res.cookie('jwt',token,{maxAge:2*60*1000})
         res.json(data)*/
-        const admin = await Admin.create(data)
-        res.status(201).json(admin)
+        const adminResult = await Admin.create(data)
+        res.status(200).json(adminResult)
     }
     catch(err) {
         console.log(err.message)
@@ -363,7 +369,7 @@ app.post('/admins/login' ,  async (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
     try{
-        const admin = await Admin.login(email, password)
+        const admin = await Admins.login(email, password)
         console.log("Found Admin")
         if(admin === null){
             res.status(500).json({Error: "Cant find admin!"})

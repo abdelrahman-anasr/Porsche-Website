@@ -38,7 +38,7 @@ const AdminSchema =new Schema({
     }
 })
 
-const Admins = mongoose.model('Admins' , AdminSchema)
+const AdminCollection = mongoose.model("Admins" , AdminSchema)
 
 AdminSchema.statics.login=async function(email,password){
     console.log("Email is: " + email + " and Password is: " + password)
@@ -58,5 +58,6 @@ AdminSchema.statics.login=async function(email,password){
 }
 
 
+const Admins = mongoose.model('Admins' , AdminSchema)
 
 module.exports = Admins
