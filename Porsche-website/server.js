@@ -159,27 +159,6 @@ app.post('/customers/login' ,  async (req,res) => {
 
 
 
-app.get("/api/customers",(req,res)=>{
-    var id = req.body._id
-    console.log(id)
-    if(ObjectId.isValid(id)) {
-        customers
-        .findOne({_id : new ObjectId(id)})
-        .then(doc =>{
-            res.status(200).json(doc)
-        })
-
-        .catch(err => {
-            res.status(500).json({error: "Could not fetch the data"})
-        })
-    }
-    else {
-        res.status(500).json({error: "Not a valid ID"})
-    }
-
-
-});
-
 app.get('/set-cookies',async (req,res)=>{
     console.log('set cookie')
     res.cookie('newCustomer',true)
