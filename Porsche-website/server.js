@@ -18,6 +18,8 @@ port = dotenv.port || 3001;
 
 app.use(express.json())
 
+app.use(express.urlencoded())
+
 app.use(express.static('./public'))
 
 const {MongoClient}=require('mongodb')
@@ -137,8 +139,11 @@ app.post('/customers/login' ,  async (req,res) => {
         console.log("entering function")
         const customer = await Customer.login(email, password)
         console.log("Found Customer")
-        if(customer === null){
-            res.status(500).json({Error: "Cant find customer!"})
+        if(customer === "incorrect") {
+            res.status(401).send({Error : "Incorrect Email"})
+        }
+        else if(customer === "undefined") {
+            res.status(401).send({Error : "Incorrect Password"})
         }
         else{
             res.redirect('/set-cookie')
@@ -401,8 +406,11 @@ app.post('/admins/login' ,  async (req,res) => {
         console.log("entering function")
         const admin = await Admin.login(email, password)
         console.log("Found Admin")
-        if(admin === null){
-            res.status(500).json({Error: "Cant find admin!"})
+        if(admin === "incorrect") {
+            res.status(401).send({Error : "Incorrect Email"})
+        }
+        else if(admin === "undefined") {
+            res.status(401).send({Error : "Incorrect Password"})
         }
         else{  
           //  res.send(admin)
