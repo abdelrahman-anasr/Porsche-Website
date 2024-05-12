@@ -123,7 +123,7 @@ app.post('/customers', async (req,res) => {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
         const data = {customerId : req.body.customerId , first_name : req.body.first_name , last_name : req.body.last_name , email : req.body.email ,  password : hashedPassword}
         const customerResult = await Customer.create(data)
-        res.redirect("/set-cookie") // redirect to home page after making sure registration is done
+        res.redirect("/set-cookie")
         
     }
     catch(err) {
@@ -140,8 +140,6 @@ app.post('/customers/login' ,  async (req,res) => {
         console.log("entering function")
         const customer = await Customer.login(email, password)
         console.log("customer logged in")
-        const token=createToken(email)
-        await res.cookie('jwt',token,{maxAge: 2*60*1000})
         console.log("Found Customer and gave them a cookie")
         if(customer === "incorrect") {
             res.status(401).send({Error : "Incorrect Email"})
@@ -187,7 +185,7 @@ app.get('/set-cookies',async (req,res)=>{
     res.cookie('newCustomer',true)
     res.cookie('isEmployee',false,{maxAge:1*60*1000})
     // await res.status(200).json({status: "success"})
-    res.redirect('/')
+    res.status.json({Status : "Success"})
     console.log("EOM")
 })
 
@@ -357,7 +355,7 @@ app.get('/set-cookie',(req,res)=>{
     res.cookie('newAdmin',true) // This always gets set, why? ~yossef
     res.cookie('isEmployee',false,{maxAge:1*60*1000})
     // res.status(200).json({status: "success"})
-    res.redirect('/')
+    res.status(201).json({Status : "Success"})
 })
 app.get('/get-cookies',(req,res)=>{
     console.log('get cookie')
