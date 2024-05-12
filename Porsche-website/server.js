@@ -49,9 +49,9 @@ client.connect().then( () => {
 
 const db = client.db('Porsche');
 
-const customers = db.collection('Customers');
-const products = db.collection('Products');
-const admins = db.collection('Admins');
+const customers = db.collection('customers');
+const products = db.collection('products');
+const admins = db.collection('admins');
 const orders = db.collection('Orders');
 
 const ObjectId = require('mongodb').ObjectId;
@@ -123,9 +123,7 @@ app.post('/customers', async (req,res) => {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
         const data = {customerId : req.body.customerId , first_name : req.body.first_name , last_name : req.body.last_name , email : req.body.email ,  password : hashedPassword}
         const customerResult = await Customer.create(data)
-        const token=createToken(data.email)
-        await res.cookie('jwt',token,{maxAge: 2*60*1000})
-        res.redirect("/") // redirect to home page after making sure registration is done
+        res.redirect("/set-cookie") // redirect to home page after making sure registration is done
         
     }
     catch(err) {
@@ -152,7 +150,7 @@ app.post('/customers/login' ,  async (req,res) => {
             res.status(401).send({Error : "Incorrect Password"})
         }
         else{
-            res.redirect('/') // Why redirect to set-cookie?, should we just redirect to homepage? ~Yossef
+            res.redirect('/set-cookie') // Why redirect to set-cookie?, should we just redirect to homepage? ~Yossef
         }
     }
     catch(err){
@@ -161,18 +159,7 @@ app.post('/customers/login' ,  async (req,res) => {
         
 })
 
-function authenticateToken(req , res , next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    if(token == null) return res.status(401)
 
-    jwt.verify(token , process.env.ACCESS_TOKEN_SECRET , (err , email) => {
-        if(err) return res.sendStatus(403)
-        console.log("ok")
-        req.email = email
-        next()
-    })
-}
 
 app.get("/api/customers",(req,res)=>{
     var id = req.body._id
@@ -195,12 +182,15 @@ app.get("/api/customers",(req,res)=>{
 
 });
 
-app.get('/set-cookies',(req,res)=>{
+app.get('/set-cookies',async (req,res)=>{
     console.log('set cookie')
     res.cookie('newCustomer',true)
     res.cookie('isEmployee',false,{maxAge:1*60*1000})
-    res.status(200).json({status: "success"})
+    // await res.status(200).json({status: "success"})
+    res.redirect('/')
+    console.log("EOM")
 })
+
 app.get('/get-cookies',(req,res)=>{
     console.log('get cookie')
     const cookies=req.cookies
@@ -267,43 +257,29 @@ app.delete("/api/customers",authenticateToken,(req,res)=>{
 
 /*      CRUD OPERATIONS FOR PRODUCTS COLLECTION IN MONGODB   */
 
-app.get("/api/products",(req,res)=>{
-    var id = req.body._id
+app.get("/api/products",async (req,res)=>{
+    const id = req.body.productId
     console.log(id)
-    if(ObjectId.isValid(id)) {
-        products
-        .findOne({_id : new ObjectId(id)})
-        .then(doc =>{
-            res.status(200).json(doc)
-        })
-
-        .catch(err => {
-            res.status(500).json({error: "Could not fetch the data"})
-        })
+    const product = await Products.findOne({productId : productId})
+    if(product == null) {
+        res.status(400).json({Error : "Product not found"})
     }
     else {
-        res.status(500).json({error: "Not a valid ID"})
+        res.status(200).json(product)
     }
 
 
 });
 
-app.post("/api/products",authenticateToken,(req,res)=>{
-    
+app.post("/api/products",requireAuth,async (req,res)=>{
+    console.log("Authenticated")
     const data = req.body
-    products
-    .insertMany(data)
-    .then(result => {
-        res.status(201).json(result)
-    })
-    .catch (err =>{
-        console.log(err.message)
-        res.status(500).json({err:"could not be inserted"})
-    })
+    const result = await Products.create(req.body)
+    res.status(200).json({Status : "Product added successfully"})
     
 });
 
-app.put("/api/products",authenticateToken,(req,res)=>{
+app.put("/api/products",requireAuth,(req,res)=>{
     const data= req.body
     products
     .insertOne(data)
@@ -315,19 +291,19 @@ app.put("/api/products",authenticateToken,(req,res)=>{
 });
 
 
-app.patch("/api/products",authenticateToken,async(req,res)=>{
+app.patch("/api/products",requireAuth,async(req,res)=>{
     try {
     var updateObject = req.body;
-    var id = req.body.id;
-    products.updateOne({_id  : new ObjectId(id)}, {$set: updateObject} , {upsert : false});
-    res.status(200).json("Updated Record Successfully")
+    var id = req.body.productId;
+    products.updateOne({productId : id}, {$set: updateObject} , {upsert : false});
+    res.status(200).json({Result : "Updated Record Successfully"})
     }
     catch(error) {
      res.status(500).json({Error: error.message})
     }
 });
 
-app.delete("/api/products",authenticateToken,(req,res)=>{
+app.delete("/api/products",requireAuth,(req,res)=>{
     id = req.body._id
     if (ObjectId.isValid(id)){
         products
@@ -366,12 +342,11 @@ app.post('/admins/auth' , authenticateToken , async (req,res) => {
 })
 
 function authenticateToken(req , res , next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    if(token == null) return res.status(401)
-
+    const token = req.cookies.jwt
+    if(token == undefined)
+        return null 
     jwt.verify(token , process.env.ACCESS_TOKEN_SECRET , (err , user) => {
-        if(err) return res.sendStatus(403)
+        if(err) return "Token Error"
         req.user = user
         next()
     })
@@ -381,7 +356,8 @@ app.get('/set-cookie',(req,res)=>{
     console.log('cookie is set')
     res.cookie('newAdmin',true) // This always gets set, why? ~yossef
     res.cookie('isEmployee',false,{maxAge:1*60*1000})
-    res.status(200).json({status: "success"})
+    // res.status(200).json({status: "success"})
+    res.redirect('/')
 })
 app.get('/get-cookies',(req,res)=>{
     console.log('get cookie')
@@ -418,8 +394,9 @@ app.post('/admins/login' ,  async (req,res) => {
         else if(admin === "undefined") {
             res.status(401).send({Error : "Incorrect Password"})
         }
-        else{  
-          //  res.send(admin)
+        else{
+            const token=createToken(email)  
+            res.cookie('jwt',token)
             res.status(201).redirect('/set-cookie')
             
         }
@@ -431,43 +408,7 @@ app.post('/admins/login' ,  async (req,res) => {
 })
 
 
-
-/*
-app.get("/admins",authenticateToken,(req,res)=>{
-    var id = req.body._id
-    console.log(id)
-    if(ObjectId.isValid(id)) {
-        admins
-        .findOne({_id : new ObjectId(id)})
-        .then(doc =>{
-            res.status(200).json(doc)
-        })
-
-        .catch(err => {
-            res.status(500).json({error: "Could not fetch the data"})
-        })
-    }
-    else {
-        res.status(500).json({error: "Not a valid ID"})
-    }
-
-
-});
-*/ // Why is there 2 /admins posts
-app.post("/admins",authenticateToken,(req,res)=>{
-    
-    const data = req.body
-    admins
-    .insertMany(data)
-    .then(result => {
-        res.status(201).json(result)
-    })
-    .catch (err =>{
-        console.log(err.message)
-        res.status(500).json({err:"could not be inserted"})
-    })
-    
-});
+ // Why is there 2 admins posts
 
 app.put("/admins",authenticateToken,(req,res)=>{
     const data= req.body
@@ -528,7 +469,7 @@ app.get("/orders",async (req,res)=>{
 
 });
 
-app.post("/orders",authenticateToken,(req,res)=>{
+app.post("/orders",requireAuth,(req,res)=>{
     
     const data = req.body
     orders
@@ -543,7 +484,7 @@ app.post("/orders",authenticateToken,(req,res)=>{
     
 });
 
-app.put("/orders",authenticateToken,(req,res)=>{
+app.put("/orders",requireAuth,(req,res)=>{
     const data= req.body
     orders
     .insertOne(data)
@@ -555,7 +496,7 @@ app.put("/orders",authenticateToken,(req,res)=>{
 });
 
 
-app.patch("/orders",authenticateToken,async(req,res)=>{
+app.patch("/orders",requireAuth,async(req,res)=>{
     try {
     var updateObject = req.body;
     var id = req.body.order_id;
@@ -567,7 +508,7 @@ app.patch("/orders",authenticateToken,async(req,res)=>{
     }
 });
 
-app.delete("/orders",authenticateToken,(req,res)=>{
+app.delete("/orders",requireAuth,(req,res)=>{
     id = req.body.order_id
     orders
         .deleteOne({order_id : id})
