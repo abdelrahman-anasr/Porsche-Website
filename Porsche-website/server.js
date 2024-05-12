@@ -20,8 +20,6 @@ app.use(express.json())
 
 app.use(express.static('./public'))
 
-app.use(express.urlencoded())
-
 const {MongoClient}=require('mongodb')
 
 const cookies=require('cookie-parser');
@@ -133,13 +131,22 @@ app.post('/customers', async (req,res) => {
 })
 
 app.post('/customers/login' ,  async (req,res) => {
-        const {email, password} = req.body
-        try{
-            const user = await Customer.login({email, password})
+    const email = req.body.email;
+    const password = req.body.password;
+    try{
+        console.log("entering function")
+        const customer = await Customer.login(email, password)
+        console.log("Found Customer")
+        if(customer === null){
+            res.status(500).json({Error: "Cant find customer!"})
         }
-        catch(err){
-            console.log(err)
+        else{
+            res.redirect('/set-cookie')
         }
+    }
+    catch(err){
+        console.log(err)
+    }
         
 })
 
@@ -393,11 +400,9 @@ app.post('/admins/login' ,  async (req,res) => {
     try{
         console.log("entering function")
         const admin = await Admin.login(email, password)
-        if(admin === "incorrect"){
-            res.status(500).json({Error: "Incorrect email"})
-        }
-        else if(admin === "undefined") {
-            res.status(500).json({Error: "Incorrect password"})
+        console.log("Found Admin")
+        if(admin === null){
+            res.status(500).json({Error: "Cant find admin!"})
         }
         else{  
           //  res.send(admin)
