@@ -47,17 +47,19 @@ const AdminSchema =new Schema({
 
 
 AdminSchema.statics.login=async function(email,password){
-    console.log("Email is: " + email + " and Password is: " + password)
     const admin=await this.findOne({email:email})
     if(admin){
         const auth=await brcypt.compare(password,admin.password)
          if (auth){
             return admin
-
          }
-        throw Error('Incorrect password')
+         else {
+            return "undefined"
+         }
     }
-    throw Error('Incorrect email')
+    else {
+        return "incorrect"
+    }
 }
 
 

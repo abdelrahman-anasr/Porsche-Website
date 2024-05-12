@@ -19,9 +19,11 @@ app.use(express.json())
 
 app.use(express.static('./public'))
 
+app.use(express.urlencoded())
+
 const {MongoClient}=require('mongodb')
 
-const cookies=require('cookie-parser');
+const cookies= require('cookie-parser');
 const Customer = require("./models/CustomerModel");
 const Admin = require("./models/AdminModel");
 const Products = require("./models/ProductModel");
@@ -124,14 +126,25 @@ app.post('/customers', async (req,res) => {
 })
 
 app.post('/customers/login' ,  async (req,res) => {
-        const {email, password} = req.body
-        try{
-            const user = await Customer.login({email, password})
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log(email)
+    console.log(password)
+    try{
+        const customerResult = await Customer.login(email, password)
+        if(customerResult === "incorrect email"){
+            res.status(500).json({Error: "Cant find customer!"})
         }
-        catch(err){
-            console.log(err)
+        else if(customerResult === "undefined") {
+            res.status(500).json({Error: "Incorrect password"})
         }
-        
+        else{
+            res.status(200).json(customerResult)
+        }
+    }
+    catch(err){
+        console.log(err)
+    }
 })
 
 function authenticateToken(req , res , next) {
@@ -377,9 +390,11 @@ app.post('/admins/login' ,  async (req,res) => {
     const password = req.body.password;
     try{
         const admin = await Admin.login(email, password)
-        console.log("Found Admin")
-        if(admin === null){
-            res.status(500).json({Error: "Cant find admin!"})
+        if(admin === "incorrect"){
+            res.status(500).json({Error: "Incorrect email"})
+        }
+        else if(admin === "undefined") {
+            res.status(500).json({Error: "Incorrect password"})
         }
         else{
             res.status(200).json(admin)

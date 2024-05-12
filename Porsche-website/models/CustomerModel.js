@@ -49,9 +49,13 @@ CustomerSchema.statics.login=async function(email,password){
          if (auth){
             return customer
          }
-        throw Error('Incorrect password')
+        else {
+            return "undefined"
+        }
     }
-    throw Error('Incorrect email')
+    else {
+        return "incorrect email"
+    }
 }
 
 const Customer = mongoose.model('Customer' , CustomerSchema)
