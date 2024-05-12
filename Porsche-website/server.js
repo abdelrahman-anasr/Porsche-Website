@@ -79,6 +79,8 @@ async function findOne(query , result) {
     result = ans
 }
 
+
+/* RENDERING THE EJS FILES */
 app.get('/' , (req , res) => {
     res.render('index.ejs')
 })
@@ -111,20 +113,19 @@ const createToken = (id)=>{
 
 
 
-
-
-
-
 /*      CRUD OPERATIONS FOR CUSTOMERS COLLECTION IN MONGODB   */
 
+
+/* CUSTOMER REGISTRATION  */
 app.post('/customers', async (req,res) => {
     try {
         const hashedPassword = await bcyrpt.hash(req.body.password , 10)
         const data = {customerId : req.body.customerId , first_name : req.body.first_name , last_name : req.body.last_name , email : req.body.email ,  password : hashedPassword}
         const customerResult = await Customer.create(data)
         const token=createToken(data.email)
-        res.cookie('jwt',token,{maxAge: 2*60*1000})
-        res.status(200).json(customerResult)
+        await res.cookie('jwt',token,{maxAge: 2*60*1000})
+        res.redirect("/") // redirect to home page
+        
     }
     catch(err) {
         console.log(err.message)
@@ -132,6 +133,7 @@ app.post('/customers', async (req,res) => {
     }
 })
 
+/* CUSTOMER LOGIN */
 app.post('/customers/login' ,  async (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -146,7 +148,7 @@ app.post('/customers/login' ,  async (req,res) => {
             res.status(401).send({Error : "Incorrect Password"})
         }
         else{
-            res.redirect('/set-cookie')
+            res.redirect('/') // Why redirect to set-cookie?, should we just redirect to homepage? ~Yossef
         }
     }
     catch(err){

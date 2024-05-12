@@ -64,11 +64,12 @@
                     <p>Please fill in this form to register.</p>
                     <hr>
 
+                <form id="registrationForm" action="/customers" method="POST">
                     <label for="first_name"><b>First Name</b></label>
-                    <input type="text" class="form-control" style="background-color: #EBD698;" placeholder="First Name" name="email" id="email" required><br>
+                    <input type="text" class="form-control" style="background-color: #EBD698;" placeholder="First Name" name="first_name" id="email" required><br>
 
                     <label for="last_name"><b>Last Name</b></label>
-                    <input type="text" class="form-control" style="background-color: #EBD698;" placeholder="Last Name" name="email" id="email" required><br>
+                    <input type="text" class="form-control" style="background-color: #EBD698;" placeholder="Last Name" name="last_name" id="email" required><br>
 
                     <label for="email"><b>Email</b></label>
                     <input type="text" class="form-control" style="background-color: #EBD698;" placeholder="Email Address" name="email" id="email" required><br>
@@ -77,17 +78,17 @@
                     <input type="date" class="form-control"style="background-color: #EBD698;" id="dob" name="dob"><br>
 
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" class="form-control"style="background-color: #EBD698;" placeholder="Password" name="psw" id="psw" required><br>
+                    <input type="password" class="form-control"style="background-color: #EBD698;" placeholder="Password" name="password" id="psw" required><br>
 
-                    <button id="myBtn" class="btn btn-primary custom-btn">Register</button>
-
+                    <button type="submit" id="myBtn" class="btn btn-primary custom-btn">Register</button>
+                  </form>
                 </div>
             </div>
             
             <div class="row justify-content-center mt-3">
               <div class="col-md-6 text-center">
                   <div class="container signin">
-                      <p>Already have an account? <a href="../views/login.html">Sign in</a>.</p>
+                      <p>Already have an account? <a href="../views/login.ejs">Sign in</a>.</p>
                   </div>
               </div>
           </div>

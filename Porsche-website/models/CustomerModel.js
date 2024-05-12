@@ -18,7 +18,7 @@ const mongoDb = mongoose.connection
 const CustomerSchema = mongoose.Schema({
     customerId:{
         type:Number,
-        required:true
+        // required:true
     },
     first_name:{
         type:String
