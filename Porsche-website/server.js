@@ -26,6 +26,7 @@ const {MongoClient}=require('mongodb')
 
 const cookies=require('cookie-parser');
 router.use(cookies)
+
 const Customer = require("./models/CustomerModel");
 const Admin = require("./models/AdminModel");
 const Products = require("./models/ProductModel");
@@ -124,7 +125,7 @@ app.post('/customers', async (req,res) => {
         const customerResult = await Customer.create(data)
         const token=createToken(data.email)
         await res.cookie('jwt',token,{maxAge: 2*60*1000})
-        res.redirect("/") // redirect to home page
+        res.redirect("/") // redirect to home page after making sure registration is done
         
     }
     catch(err) {
@@ -140,7 +141,10 @@ app.post('/customers/login' ,  async (req,res) => {
     try{
         console.log("entering function")
         const customer = await Customer.login(email, password)
-        console.log("Found Customer")
+        console.log("customer logged in")
+        const token=createToken(email)
+        await res.cookie('jwt',token,{maxAge: 2*60*1000})
+        console.log("Found Customer and gave them a cookie")
         if(customer === "incorrect") {
             res.status(401).send({Error : "Incorrect Email"})
         }
@@ -375,7 +379,7 @@ function authenticateToken(req , res , next) {
 
 app.get('/set-cookie',(req,res)=>{
     console.log('cookie is set')
-    res.cookie('newAdmin',true)
+    res.cookie('newAdmin',true) // This always gets set, why? ~yossef
     res.cookie('isEmployee',false,{maxAge:1*60*1000})
     res.status(200).json({status: "success"})
 })
@@ -428,8 +432,8 @@ app.post('/admins/login' ,  async (req,res) => {
 
 
 
-
-app.get("/admins",(req,res)=>{
+/*
+app.get("/admins",authenticateToken,(req,res)=>{
     var id = req.body._id
     console.log(id)
     if(ObjectId.isValid(id)) {
@@ -449,8 +453,8 @@ app.get("/admins",(req,res)=>{
 
 
 });
-
-app.post("/admins",(req,res)=>{
+*/ // Why is there 2 /admins posts
+app.post("/admins",authenticateToken,(req,res)=>{
     
     const data = req.body
     admins
@@ -465,7 +469,7 @@ app.post("/admins",(req,res)=>{
     
 });
 
-app.put("/admins",(req,res)=>{
+app.put("/admins",authenticateToken,(req,res)=>{
     const data= req.body
     admins
     .insertOne(data)
@@ -477,7 +481,7 @@ app.put("/admins",(req,res)=>{
 });
 
 
-app.patch("/admins",async(req,res)=>{
+app.patch("/admins",authenticateToken,async(req,res)=>{
     try {
     var updateObject = req.body;
     var id = req.body.id;
@@ -489,7 +493,7 @@ app.patch("/admins",async(req,res)=>{
     }
 });
 
-app.delete("/admins",(req,res)=>{
+app.delete("/admins",authenticateToken,(req,res)=>{
     id = req.body._id
     if (ObjectId.isValid(id)){
         admins

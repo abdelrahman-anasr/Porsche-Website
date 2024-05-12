@@ -1,4 +1,4 @@
-const brcypt = require('bcrypt')
+const bcrypt = require('bcrypt')
 const { Admin } = require('mongodb')
 const mongoose = require('mongoose')
 
@@ -44,18 +44,16 @@ const CustomerSchema = mongoose.Schema({
 
 CustomerSchema.statics.login=async function(email,password){
     const customer=await this.findOne({email:email})
-    if(customer){
-        const auth=await brcypt.compare(password,customer.password)
+    if(customer !== null){
+        const auth=await bcrypt.compare(password,customer.password)
          if (auth){
             return customer
+            console.log("Welcome back")
          }
-        else {
-            return "undefined"
-        }
-    }
-    else {
-        return "incorrect email"
-    }
+         throw Error("Incorrect Password!")
+
+    }throw Error("Incorrect Email")
+
 }
 
 const Customer = mongoose.model('Customer' , CustomerSchema)
