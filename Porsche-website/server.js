@@ -156,7 +156,19 @@ app.post('/customers/login' ,  async (req,res) => {
     }
         
 })
-
+app.get("/api/customers",async (req,res)=>{
+    let customers=[]
+    db.collection('Customer')
+    .find()
+    .sort({customer: 1})
+    .forEach(customer => customers.push(customer))
+    .then(()=>{
+        res.status(200).json(customers)
+    })
+    .catch((err)=>{
+        res.status(500).json({error:"could not fetch the data"})
+    })
+});
 
 
 app.get('/set-cookies',async (req,res)=>{

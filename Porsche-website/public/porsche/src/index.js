@@ -5,6 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App'
 import AdminPage from "./AdminPage";
+import ProductDetails from "./PorscheDetails";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
