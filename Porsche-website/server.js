@@ -246,7 +246,7 @@ app.delete("/api/customers",authenticateToken,(req,res)=>{
 
 /*      CRUD OPERATIONS FOR PRODUCTS COLLECTION IN MONGODB   */
 
-app.get("/api/products",async (req,res)=>{
+/*app.get("/api/products",async (req,res)=>{
     const id = req.body.productId
     console.log(id)
     const product = await Products.findOne({productId : productId})
@@ -256,11 +256,13 @@ app.get("/api/products",async (req,res)=>{
     else {
         res.status(200).json(product)
     }
-
-
+});*/
+app.get("/api/products",async (req,res)=>{
+  Products.find()
+    .then(products => res.json(products))
+    .catch(err=>res.json(err))
 });
-
-app.post("/api/products",requireAuth,async (req,res)=>{
+app.post("/api/products",/*requireAuth,*/async (req,res)=>{
     console.log("Authenticated")
     const data = req.body
     const result = await Products.create(req.body)
@@ -307,6 +309,7 @@ app.delete("/api/products",requireAuth,(req,res)=>{
         res.status(500).json({error:"invalid id"})
     }
 });
+
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
 
