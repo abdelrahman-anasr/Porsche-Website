@@ -44,17 +44,22 @@ const CustomerSchema = mongoose.Schema({
 
 CustomerSchema.statics.login=async function(email,password){
     const customer=await this.findOne({email:email})
-    if(customer !== null){
+    if (customer==null){
+        return "incorrect"
+    }else{
         const auth=await bcrypt.compare(password,customer.password)
-         if (auth){
-            return customer
-            console.log("Welcome back")
-         }
-         throw Error("Incorrect Password!")
+        if (!auth){
+            return "undefined"
+        }
+           return customer
+           console.log("Welcome back")
+        
+    }
+   
+       
+         
 
-    }throw Error("Incorrect Email")
-
-}
+    }
 
 const Customer = mongoose.model('Customer' , CustomerSchema)
 module.exports = Customer
