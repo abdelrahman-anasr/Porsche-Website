@@ -16,8 +16,6 @@ const Schema = mongoose.Schema
 const mongoDb = mongoose.connection
 
 
-
-
 const ProductSchema = mongoose.Schema({
     productId:{
         type:Number,
@@ -41,6 +39,6 @@ const ProductSchema = mongoose.Schema({
     }
 })
 
-const Products = mongoose.model('Product' , ProductSchema)
+const Product = mongoose.model('Product' , ProductSchema)
 
-module.exports = Products
+module.exports = Product

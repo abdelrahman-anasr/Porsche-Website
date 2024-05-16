@@ -16,11 +16,6 @@ app.set('view engine' , 'ejs')
 
 port = dotenv.port || 3001;
 
-app.use(express.json())
-
-app.use(express.urlencoded())
-
-app.use(express.static('./public'))
 
 const {MongoClient}=require('mongodb')
 
@@ -31,7 +26,7 @@ const Customer = require("./models/CustomerModel");
 const Admin = require("./models/AdminModel");
 const Products = require("./models/ProductModel");
 const requireAuth=require('./middleware/authMiddleware')
-
+const cors=require('cors')
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
 
@@ -62,7 +57,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 /* MIDDLEWARE AND EXPRESS SETUP + ADDITIONAL FUNCTIONS */
-
+app.use(cors());
 
 app.listen(port , ()=>{
     console.log("Server is running: listening to port " + port);
@@ -79,7 +74,11 @@ async function findOne(query , result) {
     const ans = await customers.findOne(query);
     result = ans
 }
+app.use(express.json())
 
+app.use(express.urlencoded())
+
+app.use(express.static('./public'))
 
 /* RENDERING THE EJS FILES */
 app.get('/' , (req , res) => {
@@ -110,7 +109,12 @@ const createToken = (id)=>{
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
-
+const corsOptions = {
+    origin: 'http://localhost:3000',
+  };
+  
+  app.use(cors(corsOptions));
+  
 
 
 
@@ -257,8 +261,8 @@ app.delete("/api/customers",authenticateToken,(req,res)=>{
         res.status(200).json(product)
     }
 });*/
-app.get("/api/products",async (req,res)=>{
-  Products.find()
+app.get('/api/products',async (req,res)=>{
+    Products.find()
     .then(products => res.json(products))
     .catch(err=>res.json(err))
 });

@@ -55,9 +55,7 @@ CustomerSchema.statics.login=async function(email,password){
            console.log("Welcome back")
         
     }
-   
-       
-         
+ 
 
     }
 
