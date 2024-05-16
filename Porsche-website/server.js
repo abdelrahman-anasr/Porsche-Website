@@ -25,9 +25,10 @@ router.use(cookies)
 const Customer = require("./models/CustomerModel");
 const Admin = require("./models/AdminModel");
 const Products = require("./models/ProductModel");
-const Order = require('./models/Order');
+const Order = require('./models/OrderModel');
 const requireAuth=require('./middleware/authMiddleware')
-const cors=require('cors')
+const cors=require('cors');
+const { overwriteMiddlewareResult } = require("mongoose");
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
 
@@ -161,19 +162,10 @@ app.post('/customers/login' ,  async (req,res) => {
     }
         
 })
-app.get("/api/customers",async (req,res)=>{
-    let customers=[]
-    db.collection('Customer')
-    .find()
-    .sort({customer: 1})
-    .forEach(customer => customers.push(customer))
-    .then(()=>{
-        res.status(200).json(customers)
-    })
-    .catch((err)=>{
-        res.status(500).json({error:"could not fetch the data"})
-    })
-});
+app.get("/customers" , async(req,res) => {
+    const allCustomers = await Customer.find({})
+    res.status(200).json(allCustomers)
+})
 
 
 app.get('/set-cookies',async (req,res)=>{
@@ -262,10 +254,9 @@ app.delete("/api/customers",authenticateToken,(req,res)=>{
         res.status(200).json(product)
     }
 });*/
-app.get('/api/products',async (req,res)=>{
-    Products.find()
-    .then(products => res.json(products))
-    .catch(err=>res.json(err))
+app.get("/api/products",async (req,res)=>{
+    const allProducts = await Products.find({})
+    res.status(200).json(allProducts)
 });
 app.post("/api/products",/*requireAuth,*/async (req,res)=>{
     console.log("Authenticated")
@@ -452,28 +443,13 @@ app.delete("/admins",authenticateToken,(req,res)=>{
 
 /*      CRUD OPERATIONS FOR ORDERS COLLECTION IN MONGODB   */
 
-app.get("/orders",async (req,res)=>{
-    var id = req.body.order_id
-    console.log(id)
-    const order = await orders.findOne({order_id : id})
-    if(order == null) {
-        res.status(400).json({Status : "Order not found"})
-    }
-    else {
-        res.status(200).json(order);
-    }
 
 
-});
 
-app.get('/api/orders', async (req, res) => {
-    try {
-      const orders = await Order.find();
-      res.json(orders);
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
+app.get("/orders", async (req, res) => {
+    const allOrders=await Order.find({})
+    console.log(allOrders)
+    res.status(200).json(allOrders)
   });
 
 app.post("/orders",requireAuth,(req,res)=>{

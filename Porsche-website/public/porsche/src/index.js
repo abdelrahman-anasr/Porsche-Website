@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import React from'react';
 import reportWebVitals from './reportWebVitals';
-import App from './App'
-import AdminPage from "./AdminPage";
 import ProductDetails from "./PorscheDetails";
-import CustomerList from "./trial";
 import OrderList from "./Orders";
-
+import CustPost from "./AddProduct";
+import ProdPage from "./ProductsPage";
+import App from "./AdminCustomerList";
+import Order from "./Orders";
+import AdminPage from "./AdminPage";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <OrderList />
+    <ProdPage />
   </React.StrictMode>
 );
 

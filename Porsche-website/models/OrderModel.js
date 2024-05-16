@@ -19,6 +19,10 @@ const mongoDb = mongoose.connection
 
 
 const OrderSchema = mongoose.Schema({
+    orderId: {
+        type:Number,
+        required:true
+    },
     productId:{
         type:Number,
         required:true
@@ -27,8 +31,8 @@ const OrderSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    order_data: {
-        type:Date,
+    order_date: {
+        type:String,
         required: true
     }
 })
