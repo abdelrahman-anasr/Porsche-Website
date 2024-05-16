@@ -25,6 +25,7 @@ router.use(cookies)
 const Customer = require("./models/CustomerModel");
 const Admin = require("./models/AdminModel");
 const Products = require("./models/ProductModel");
+const Order = require('./models/Order');
 const requireAuth=require('./middleware/authMiddleware')
 const cors=require('cors')
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
@@ -464,6 +465,16 @@ app.get("/orders",async (req,res)=>{
 
 
 });
+
+app.get('/api/orders', async (req, res) => {
+    try {
+      const orders = await Order.find();
+      res.json(orders);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 app.post("/orders",requireAuth,(req,res)=>{
     

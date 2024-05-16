@@ -6,11 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import App from './App'
 import AdminPage from "./AdminPage";
 import ProductDetails from "./PorscheDetails";
+import CustomerList from "./trial";
+import OrderList from "./Orders";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ProductDetails />
+    <OrderList />
   </React.StrictMode>
 );
 
