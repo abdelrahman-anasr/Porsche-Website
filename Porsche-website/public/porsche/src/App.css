@@ -442,3 +442,14 @@ border-radius: 25px;
   width: 29%;
   background-color: #EBD698;
 }
+
+
+.form-div{
+  margin-top: 10%;
+  margin-left: 35%;
+  width: 30%;
+  background-color: #EBD698;
+  padding: 5px;
+  border-radius: 10px;
+  font-family: 'porscheFont';
+}

@@ -6,6 +6,11 @@ import './App.css'
 import logo from "./images/porsche_logo.svg"
 import ProductUpdate from "./ProductUpdate";
 import App from "./App";
+
+const handleLogout = () => {
+    localStorage.clear(); 
+    window.location.href = "/";
+}
 function Nav() {
 
     return(
@@ -40,7 +45,9 @@ function Nav() {
       <a className="nav-item nav-link" href="/" style={{ fontFamily: "porscheFont", color: "white", textDecoration: "none" }}>Home</a>
       <a className="nav-item nav-link" href="/about" style={{ fontFamily: "porscheFont", color: "white", textDecoration: "none" }}>About</a>
       <a className="nav-item nav-link" href="/contact" style={{ fontFamily: "porscheFont", color: "white", textDecoration: "none" }}>Contact Us</a>
-      <a className="nav-item nav-link" href="/login" style={{ fontFamily: "porscheFont", color: "white", textDecoration: "none", marginLeft: "350px", marginRight: "0px" }}>Login</a>
+      {localStorage.getItem("LoggedName")?<><a className="nav-item nav-link" href="/" style={{ fontFamily: "porscheFont", color: "white", textDecoration: "none", marginLeft: "350px", marginRight: "0px" }}>Welcome, {localStorage.getItem("LoggedName")}</a><a className="nav-item nav-link" onClick={handleLogout} style={{fontFamily: "porscheFont", color:"white", textDecoration:"none", marginLeft:"30px", cursor:"pointer"}}>Logout</a></>:<a className="nav-item nav-link" href="/login" style={{ fontFamily: "porscheFont", color: "white", textDecoration: "none", marginLeft: "350px", marginRight: "0px" }}>Login</a>}
+
+      
     </div>
   </div>
 </nav>

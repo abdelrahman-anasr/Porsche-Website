@@ -1,10 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios'
 import './css/style.css';
 import './css/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
+import Nav from './Navbar';
 
 function RegistrationForm() {
   const inputStyle = {
@@ -49,28 +51,33 @@ const handleSubmit = async (e) => {
   })
 
   console.log(customer)
+  window.location.href = '/login'; // redirect to login page on successful registration
 }
 
 
   return (
-    
+<>
+  <Nav />
+    <div className='form-div'>
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-md-6">
+        <div className="col-md-90">
           <form id="registrationForm" required onSubmit={handleSubmit}>
-            <label ><b>First Name</b></label>
+            <h2>Register</h2>
+            <div style={{display: "flex", justifyContent: "center", width:"100%", gap: "10px", marginBottom:"10px"}}>
+            <label ><b>First Name*</b></label>
             <input type="text" onChange={UpdateFirstName} className="form-control"  placeholder="First Name" name="first_name" id="email" required /><br />
 
             <label><b>Last Name</b></label>
-            <input type="text"onChange={UpdateLastName} className="form-control"  placeholder="Last Name" name="last_name" id="email" required /><br />
-
-            <label><b>Email</b></label>
+            <input type="text"onChange={UpdateLastName} className="form-control"  placeholder="Last Name" name="last_name" id="email"  /><br />
+            </div>
+            <label><b>Email*</b></label>
             <input type="text" onChange={UpdateEmail} className="form-control"  placeholder="Email Address" name="email" id="email" required /><br />
 
-            <label>Date of birth:</label>
+            <label><b>Date of birth:</b></label>
             <input type="date" onChange={UpdateDOB} className="form-control"  id="dob" name="dob" /><br />
 
-            <label><b>Password</b></label>
+            <label><b>Password*</b></label>
             <input type="password" onChange={UpdatePassword} className="form-control"  placeholder="Password" name="password" id="psw" required /><br />
 
             <button type="submit" id="myBtn" className="btn btn-primary custom-btn">Register</button>
@@ -86,6 +93,8 @@ const handleSubmit = async (e) => {
         </div>
       </div>
     </div>
+    </div>
+    </>
   );
 }
 

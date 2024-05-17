@@ -27,7 +27,7 @@ function AdminPage(){
         </>
     )
     }
-    else if(localStorage.getItem("Admin") == "Yes"){
+    else if(localStorage.getItem("Admin") == "No"){
         return (
             <>
             <h1>You are not an admin!</h1></>

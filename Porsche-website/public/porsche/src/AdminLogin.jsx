@@ -11,6 +11,8 @@ export default function  AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  var isError = false;
+
     const UpdateEmail = (e) =>{
         setEmail(e.target.value)
     }
@@ -20,14 +22,19 @@ export default function  AdminLogin() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    const customer = {email, password}
+    const admin = {email, password}
     await axios.post(url,{
-        email: customer.email,
-        password: customer.password
+        email: admin.email,
+        password: admin.password
     } , {withCredentials : true})
+    .catch((error) => {
+      isError = true;
+      alert("Invalid email or password")
+    });
+    if(!isError){
     localStorage.setItem("Admin" , "Yes");
     navigate("./AdminPage");
-
+    }
 
 
   };
@@ -37,7 +44,7 @@ export default function  AdminLogin() {
     <Nav />
       <div className="form-div">
         <div className="container">
-          <h2>Login</h2>
+          <h2>Admin Login</h2>
           <form className="form-horizontal" onSubmit={handleLogin}>
             <div className="form-group">
               <label className="control-label col-sm-2">Email</label>
@@ -59,7 +66,7 @@ export default function  AdminLogin() {
               <div className="col-sm-10">
                 <input 
                   type="password" 
-                  className="form-control" 
+                  className="form-control mb-3" 
                   id="password" 
                   placeholder="Enter Password" 
                   name="password" 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Nav from './Navbar'
+import { Carousel } from 'react-bootstrap';
 
 
 export default function AboutPage() {

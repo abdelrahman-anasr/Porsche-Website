@@ -3,9 +3,21 @@ import { Button } from "react-bootstrap";
 import './App.css'
 import Nav from "./Navbar";
 import axios from "axios";
+import { useState } from 'react';
+import OrderSuccessModal from "./OrderSuccessModal";
+
+
+
+
 export default function Car3(){
     const url = "http://localhost:3001/orders"
-    const handleLogin = async (event) => {
+    const [showModal, setShowModal] = useState(false);
+
+    const closeModal = () => { 
+        setShowModal(false);
+    }
+
+    const handlePurchase = async (event) => {
         console.log("yay")
         event.preventDefault();
         const orderId = 1;
@@ -15,6 +27,7 @@ export default function Car3(){
         const postVal = {orderId : orderId , productId : productId , user_email : email , order_date : data};
         await axios.post(url, postVal)
         console.log("Submitted")
+        setShowModal(true);
     }
     return(
         <>
@@ -22,19 +35,21 @@ export default function Car3(){
         <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://images.alphacoders.com/118/1182622.jpg" alt="..." /></div>
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://www.hdcarwallpapers.com/walls/porsche_taycan_turbo_s_4k_2-HD.jpg" alt="..." /></div>
                 <div class="col-md-6">
-                    <div class="small mb-1">SKU: BST-498</div>
                     <h1 class="display-5 fw-bolder">Porsche Taycan</h1>
                     <div class="fs-5 mb-5">
-                        <span>$131,300</span>
+                        <span><b>$131,300</b></span><br />
+                        <span>The Porsche Taycan is a groundbreaking electric sports car that delivers exhilarating performance, innovative technology, and the luxury craftsmanship that defines the Porsche brand.</span>
+                        <hr />
                     </div>
                     <p class="lead"></p>
                     <div class="d-flex">
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button" onClick={handlePurchase}>
                             <i class="bi-cart-fill me-1"></i>
                             Purchase
                         </button>
+                        <OrderSuccessModal showModal={showModal} closeModal={closeModal} />
                     </div>
                 </div>
             </div>

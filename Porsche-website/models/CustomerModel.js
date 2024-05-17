@@ -21,7 +21,8 @@ const CustomerSchema = mongoose.Schema({
         // required:true
     },
     first_name:{
-        type:String
+        type:String,
+        required:true
     },
     last_name:{
         type:String
