@@ -26,7 +26,7 @@ export default function  AdminLogin() {
         password: customer.password
     } , {withCredentials : true})
     localStorage.setItem("Admin" , "Yes");
-    navigate("/");
+    navigate("./AdminPage");
 
 
 

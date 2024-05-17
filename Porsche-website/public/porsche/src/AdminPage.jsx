@@ -9,16 +9,20 @@ import ProductUpdate from "./ProductUpdate";
 import PorscheDelete from "./ProdDelete";
 import Nav from "./Navbar";
 function AdminPage(){
-
-
     if(localStorage.getItem("Admin") != null) {
     return(
         <>
         <Nav />
         <App/>
+        <br></br>
         <ProdPost/>
+        <br></br>
         <Order />
+        <br></br>
+        <div style={{ fontWeight: "bold", fontSize: "20px" }}>To update a product:</div>
         <ProductUpdate/>
+        <br></br>
+        <div style={{ fontWeight: "bold", fontSize: "20px" }}>To delete a product:</div>
         <PorscheDelete/>
         </>
     )

@@ -29,7 +29,7 @@ export default function Car5(){
                     <div class="fs-5 mb-5">
                         <span>$97,000</span>
                     </div>
-                    <p class="lead">John Zaki</p>
+                    <p class="lead"></p>
                     <div class="d-flex">
                         <button class="btn btn-outline-dark flex-shrink-0" type="button">
                             <i class="bi-cart-fill me-1"></i>

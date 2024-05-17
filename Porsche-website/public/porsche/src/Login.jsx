@@ -2,6 +2,7 @@ import axios from 'axios';
 import './App.css'; // Import your CSS files
 import React, { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 export default function  Login() {
   const url = "http://localhost:3001/customers/login"; // Ensure this URL is correct and your backend is running
   const [email, setEmail] = useState('');
@@ -71,6 +72,13 @@ export default function  Login() {
               </div>
             </div>
           </form>
+        </div>
+      </div>
+      <div className="row justify-content-center mt-3">
+        <div className="col-md-6 text-center">
+          <div className="container signin">
+            <p>Don't have an account? <Link to='/Register'>Sign up</Link>.</p>
+          </div>
         </div>
       </div>
       
