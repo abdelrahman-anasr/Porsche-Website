@@ -10,11 +10,13 @@
 .container1 {
   margin-left: 10%;
   width: 75%;
+  top: 50%;
+  transform: translateY(15%);
 }
 
 @font-face {
   font-family: porscheFont;
-  src: url(../../fonts/porsche.ttf);
+  src: url(./fonts/porsche.ttf);
 }
 body, html {
   height: 100%;
@@ -339,7 +341,7 @@ opacity: 0.5;
 
 @font-face {
 font-family: porscheFont;
-src: url(../../fonts/porsche.ttf);
+src: url(./fonts/porsche.ttf);
 }
 
 
@@ -429,4 +431,14 @@ margin-bottom: 90px;
 
 .gridImagery {
 border-radius: 25px;
+}
+
+.container10 {
+  margin-left: 35%;
+  margin-top: 5%;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  width: 29%;
+  background-color: #EBD698;
 }

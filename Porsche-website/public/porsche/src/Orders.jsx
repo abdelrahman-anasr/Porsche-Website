@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 
+
 function Order() {
 
   const url = "http://localhost:3001/orders"; // Update URL to fetch orders
@@ -34,6 +35,7 @@ function Order() {
           <tr>
             <th scope="col">Order ID</th>
             <th scope="col">Product ID</th>
+            <th scope="col">Email</th>
             <th scope="col">Order Date</th>
             
           </tr>

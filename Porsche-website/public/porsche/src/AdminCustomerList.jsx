@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function App() {
+function AdminCustomerList (){
   const url = "http://localhost:3001/customers"; // Ensure this URL is correct and your backend is running
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -52,4 +52,4 @@ function App() {
   );
 }
 
-export default App;
+export default AdminCustomerList;

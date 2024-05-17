@@ -1,171 +1,32 @@
-import React from 'react';
-import 'public\css\main.css'
-function Container(){
-    return(
-        <div className="index">
-        <div id="sidebar" className="sidebar">
-          <a href="" className="closebtn" onclick="closeNav()" style="font-family: porscheFont;">X</a>
-          <a href="#" style="font-family: porscheFont;" onclick="opensecondNav()">Car Models</a>
-          <a href="../views/locations.html" style="font-family: porscheFont;">Locations</a>
-          <a href="#" style="font-family: porscheFont;">Clients</a>
-          <a href="../views/Contact.html" style="font-family: porscheFont;">Contact</a>
-          <div id="secondSidebar" className="secondSidebar">
-            <span href="#" onclick="closeSecondNav()" className="secondX">X</span>
-            <div style="height: 75px;"></div>
-            <a><img src="../images/911 small.webp" style="width: 175px;height: 100px;"/></a>
-            <a><img src="../images/718 small.webp" style="width: 175px;height: 100px;"/></a>
-            <a><img src="../images/cayenne small.webp" style="width: 175px;height: 100px;"/></a>
-            <a><img src="../images/macan small.webp" style="width: 175px;height: 100px;"/></a>
-            <a><img src="../images/panamera small.webp" style="width: 175px;height: 100px;"/></a>
-          </div>
-        </div>
-      
-          <nav className="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
-            <input type="image" src="../images/porsche_logo.svg" className="overlappingLogo" width="45" height="45" onclick="openNav()"/>
-            <div className="gapDiv"></div>
-            <a className="navbar-brand" href="#" style="font-family: porscheFont; font-size: 22px;">Porsche™</a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="spacerDiv"></div>
-            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div className="navbar-nav">
-                <a className="nav-item nav-link" href="../views/index.html" style="font-family: porscheFont; color: white;text-decoration: none;">Home</a>
-                <a className="nav-item nav-link" href="../views/aboutpage.html" style="font-family: porscheFont; color: white;text-decoration: none;">About</a>
-                <a className="nav-item nav-link" href="../views/Contact.html" style="font-family: porscheFont; color: white;text-decoration: none;">Contact Us</a>
-                <a className="nav-item nav-link" href="../views/login.html" style="font-family: porscheFont; color: white;text-decoration: none; margin-left: 350px; margin-right: 0px;">login</a>
-              </div>
-            </div>
-          </nav>
-        <hr className="red" />
-        <hr className="gold" />
-      
-        <div style="height: 525px; width: 100%; opacity: 1; margin-top: 0%; padding-top: 0%;">
-          <img src="../images/seekLogo.svg" style="position: absolute; z-index: 1; top: 15%; left: 36.5%; width: 400px; height: 400px;"/>
-          <video autoplay muted loop style="z-index: -1; opacity: 0.6;">
-            <source src="../videos/porscheIntro.mp4" type="video/mp4"/>
-          </video>
-        </div>
-      
-        <h1 style="font-family: porscheFont;">Find Your Model</h1>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4">
-              <div className="card mb-4 box-shadow">
-                <img className="card-img-top" src="../images/macanGrid.jpg" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22349%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20349%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18e664a6ed6%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18e664a6ed6%22%3E%3Crect%20width%3D%22349%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22117.20000076293945%22%20y%3D%22120.10000019073486%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true"/>
-                <div className="overlayingText">
-                  <p className="card-text" style="font-family: porscheFont; color: #EBD698; font-size: 18px;margin-bottom: 1%; margin-left: 0%; text-align: center;">Macan</p>
-                    <p className="card-text" style="font-family: porscheFont; color: white; font-size: 14px;margin-bottom: 0%; text-align: center;">Starting from 80,400$</p>
-                    <div className="btn-group" style="position: absolute; left: 27.5%; bottom: 18%;">
-                      <button type="button" className="btn btn-dark" style="font-family: porscheFont;">Check it Out</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card mb-4 box-shadow">
-                <img className="card-img-top" src="../images/album911.jpg" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22349%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20349%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18e664a6ed6%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18e664a6ed6%22%3E%3Crect%20width%3D%22349%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22117.20000076293945%22%20y%3D%22120.10000019073486%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true"/>
-                <div className="overlayingText">
-                  <p className="card-text" style="font-family: porscheFont; color: #EBD698; font-size: 18px;margin-bottom: 1%; margin-left: 0%; text-align: center;">911</p>
-                    <p className="card-text" style="font-family: porscheFont; color: white; font-size: 14px;margin-bottom: 0%; text-align: center;">Starting from 120,700$</p>
-                    <div className="btn-group" style="position: absolute; left: 27.5%; bottom: 18%;">
-                      <button type="button" className="btn btn-dark" style="font-family: porscheFont;">Check it Out</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card mb-4 box-shadow">
-                <img className="card-img-top" src="../images/panameraGrid.jpg" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22349%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20349%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18e664a6ed6%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18e664a6ed6%22%3E%3Crect%20width%3D%22349%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22117.20000076293945%22%20y%3D%22120.10000019073486%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true"/>
-                <div className="overlayingText">
-                  <p className="card-text" style="font-family: porscheFont; color: #EBD698; font-size: 18px;margin-bottom: 1%; margin-left: 0%; text-align: center;">Panamera</p>
-                    <p className="card-text" style="font-family: porscheFont; color: white; font-size: 14px;margin-bottom: 0%; text-align: center;">Starting from 180,000$</p>
-                    <div className="btn-group" style="position: absolute; left: 27.5%; bottom: 18%;">
-                      <button type="button" className="btn btn-dark" style="font-family: porscheFont;">Check it Out</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-      
-            <div className="col-md-4">
-              <div className="card mb-4 box-shadow">
-                <img className="card-img-top" src="../images/cayenneGrid.jpg" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22349%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20349%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18e664a6ed6%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18e664a6ed6%22%3E%3Crect%20width%3D%22349%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22117.20000076293945%22%20y%3D%22120.10000019073486%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true"/>
-                <div className="overlayingText">
-                  <p className="card-text" style="font-family: porscheFont; color: #EBD698; font-size: 18px;margin-bottom: 1%; margin-left: 0%; text-align: center;">Cayenne</p>
-                    <p className="card-text" style="font-family: porscheFont; color: white; font-size: 14px;margin-bottom: 0%; text-align: center;">Starting from 62,300$</p>
-                    <div className="btn-group" style="position: absolute; left: 27.5%; bottom: 18%;">
-                      <button type="button" className="btn btn-dark" style="font-family: porscheFont;">Check it Out</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card mb-4 box-shadow">
-                <img className="card-img-top" src="../images/718Grid.jpg" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22349%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20349%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18e664a6ed6%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18e664a6ed6%22%3E%3Crect%20width%3D%22349%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22117.20000076293945%22%20y%3D%22120.10000019073486%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true"/>
-                <div className="overlayingText">
-                  <p className="card-text" style="font-family: porscheFont; color: #EBD698; font-size: 18px;margin-bottom: 1%; margin-left: 0%; text-align: center;">718</p>
-                    <p className="card-text" style="font-family: porscheFont; color: white; font-size: 14px;margin-bottom: 0%; text-align: center;">Starting from 97,000$</p>
-                    <div className="btn-group" style="position: absolute; left: 27.5%; bottom: 18%;">
-                      <button type="button" className="btn btn-dark" style="font-family: porscheFont;">Check it Out</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card mb-4 box-shadow">
-                <img className="card-img-top" src="../images/taycanGrid.jpg" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22349%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20349%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18e664a6ed6%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18e664a6ed6%22%3E%3Crect%20width%3D%22349%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22117.20000076293945%22%20y%3D%22120.10000019073486%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true"/>
-                <div className="overlayingText">
-                  <p className="card-text" style="font-family: porscheFont; color: #EBD698; font-size: 18px;margin-bottom: 1%; margin-left: 0%; text-align: center;">Taycan</p>
-                    <p className="card-text" style="font-family: porscheFont; color: white; font-size: 14px;margin-bottom: 0%; text-align: center;">Starting from 131,300$</p>
-                    <div className="btn-group" style="position: absolute; left: 27.5%; bottom: 18%;">
-                      <button type="button" className="btn btn-dark" style="font-family: porscheFont;">Check it Out</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-      
-        
-      
-      <footer className="bg-dark text-center text-white">
-      <div className="container p-4 pb-0">
-        <section className="mb-4">
-          <a className="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/checkpoint/828281030927956/?next=https%3A%2F%2Fwww.facebook.com%2Fporsche%2F" role="button"
-            ><i className="fa fa-facebook-f"></i
-          ></a>
-      
-          <a className="btn btn-outline-light btn-floating m-1" href="https://twitter.com/Porsche" role="button"
-            ><i className="fa fa-twitter"></i
-          ></a>
-      
-      
-          <a className="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/Porsche/" role="button"
-            ><i className="fa fa-instagram"></i
-          ></a>
-      
-        </section>
-      </div>
-      
-      <div className=" d-flex justify-content-center text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        <img src = "../images/porsche_logo.svg" alt = "Porsche™ logo" style="width: 20px; height: 20px; margin-right: 5px;"/>
-        Porsche © 2024 All Rights Reserved.
-      </div>
-      </footer>
-      
-      
-        <script src="../script.js"></script>
-        <script src="../server.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-          crossorigin="anonymous"></script>
-      </div>
+import React from "react";
+import { Button, Navbar } from "react-bootstrap";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { redirect } from "react-router-dom";
+import './App.css'
+import logo from "./images/porsche_logo.svg"
+import largelogo from "./images/seekLogo.svg"
+import ProductUpdate from "./ProductUpdate";
+import App from "./App";
+import Nav from "./Navbar";
+import ProductDetails from "./PorscheDetails";
+function HomePage() {
+    return (
+        <>
+        <Nav/>
+        <div style={{ height: "525px", width: "100%", opacity: 1, marginTop: "0%", paddingTop: "0%" }}>
+  <img src={largelogo} style={{ position: "absolute", zIndex: 1, top: "15%", left: "36.5%", width: "400px", height: "400px" }} />
+  <video autoPlay muted loop style={{ zIndex: -1, opacity: 0.6 }}>
+    <source src={require('./videos/porscheIntro.mp4')} type="video/mp4" />
+  </video>
+</div>
+
+<h1 style={{ fontFamily: "porscheFont" }}>Find Your Model</h1>
+  <ProductDetails/>
 
 
 
-        )
-        
-    }
+        </>
+    )
+}
+
+export default HomePage;

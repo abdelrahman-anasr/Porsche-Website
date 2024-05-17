@@ -27,8 +27,8 @@ const Admin = require("./models/AdminModel");
 const Products = require("./models/ProductModel");
 const Order = require('./models/OrderModel');
 const requireAuth=require('./middleware/authMiddleware')
-const cors=require('cors');
 const { overwriteMiddlewareResult } = require("mongoose");
+const Product = require("./models/ProductModel");
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
 
@@ -49,7 +49,7 @@ const db = client.db('Porsche');
 const customers = db.collection('customers');
 const products = db.collection('products');
 const admins = db.collection('admins');
-const orders = db.collection('Orders');
+const orders = db.collection('orders');
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -57,15 +57,27 @@ const ObjectId = require('mongodb').ObjectId;
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
 
+const cors=require("cors");
 
-/* MIDDLEWARE AND EXPRESS SETUP + ADDITIONAL FUNCTIONS */
-app.use(cors());
+const allowedUrl = 'http://localhost:3000'
+const corsOptions ={
+   origin:allowedUrl, 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
+
+
 
 app.listen(port , ()=>{
     console.log("Server is running: listening to port " + port);
 });
 
 app.use((req , res , next)=>{
+    res.setHeader('Access-Control-Allow-Origin', allowedUrl)
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST')
+    res.setHeader('Access-Control-Allow-Credentials', true);
     console.log("The middleware received your request");
     next();
 });
@@ -111,11 +123,11 @@ const createToken = (id)=>{
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
-const corsOptions = {
+const corsOptions2 = {
     origin: 'http://localhost:3000',
   };
   
-  app.use(cors(corsOptions));
+  app.use(cors(corsOptions2));
   
 
 
@@ -164,6 +176,12 @@ app.post('/customers/login' ,  async (req,res) => {
 })
 app.get("/customers" , async(req,res) => {
     const allCustomers = await Customer.find({})
+    res.status(200).json(allCustomers)
+})
+
+app.get("/customers/find" , async(req,res) => {
+    email = req.body.email
+    const allCustomers = await Customer.find({email: email})
     res.status(200).json(allCustomers)
 })
 
@@ -258,7 +276,7 @@ app.get("/api/products",async (req,res)=>{
     const allProducts = await Products.find({})
     res.status(200).json(allProducts)
 });
-app.post("/api/products",/*requireAuth,*/async (req,res)=>{
+app.post("/api/products",requireAuth,async (req,res)=>{
     console.log("Authenticated")
     const data = req.body
     const result = await Products.create(req.body)
@@ -291,19 +309,18 @@ app.patch("/api/products",requireAuth,async(req,res)=>{
 });
 
 app.delete("/api/products",requireAuth,(req,res)=>{
-    id = req.body._id
-    if (ObjectId.isValid(id)){
-        products
-        .deleteOne({_id: new ObjectId(id)})
-        .then(result=>{res.status(204).json("Deleted Record")
+    id = req.body.productId
+    console.log("Request is: " + req.body)
+        Product.deleteOne({productId: id})
+
+        .then(result=>{
+            console.log("deleted")
+            res.status(204).json("Deleted Record")
         })
         .catch(err=>{
             res.status(500).json({error: "could not delete document"})
         })
     
-    }else{
-        res.status(500).json({error:"invalid id"})
-    }
 });
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
@@ -369,7 +386,7 @@ app.post('/admins', async (req,res) => {
 })
 
 
-app.post('/admins/login' ,  async (req,res) => {
+app.post('/admins/login',  async (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
     try{
@@ -384,7 +401,8 @@ app.post('/admins/login' ,  async (req,res) => {
         }
         else{
             const token=createToken(email)  
-            res.cookie('jwt',token)
+            res.cookie('jwt',token , { httpOnly: true, secure: true, sameSite: 'None'})
+            console.log("jwt set")
             res.status(201).redirect('/set-cookie')
             
         }
@@ -444,19 +462,18 @@ app.delete("/admins",authenticateToken,(req,res)=>{
 /*      CRUD OPERATIONS FOR ORDERS COLLECTION IN MONGODB   */
 
 
-
-
 app.get("/orders", async (req, res) => {
     const allOrders=await Order.find({})
     console.log(allOrders)
     res.status(200).json(allOrders)
   });
 
-app.post("/orders",requireAuth,(req,res)=>{
+app.post("/orders",(req,res)=>{
     
     const data = req.body
+    console.log(data)
     orders
-    .insertMany(data)
+    .insertOne(data)
     .then(result => {
         res.status(201).json(result)
     })
